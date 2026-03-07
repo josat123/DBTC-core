@@ -1,0 +1,18 @@
+{
+  "network": "mainnet",
+  "deflationaryBTC": {
+    "address": "0xe972BbB8bB357418131951CcEaec9d8A5993bea2",
+    "network": "Ethereum L1"
+  },
+  "wrappedDBTC": {
+    "address": "0x5Ea83b4c928Aa4055D02592f3AFE0fE87318598D",
+    "network": "Polygon PoS"
+  },
+  "universalBridge": {
+    "l1": "0xe8681d55585FcDA6a4a39c9a59f39b63fbBa88e8",
+    "l2": "0x0Ef6a63a16fB21dD8398183a154596953Ce4E835",
+    "network": "Ethereum L1 ↔ Polygon PoS"
+  },
+  "distributor": "0x428685F1c10a0ea7BAcB14C0E0938Ea8EcCdAb5D",
+  "deployDate": "2025-03-07"
+}
