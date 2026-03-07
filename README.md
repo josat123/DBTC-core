@@ -6,72 +6,74 @@ markdown
 [![Foundry](https://img.shields.io/badge/Built%20with-Foundry-FFDB1C)](https://book.getfoundry.sh/)
 [![Tests](https://img.shields.io/badge/Tests-Passing-brightgreen)](https://github.com/josat123/DBTC-core/actions)
 [![OpenZeppelin](https://img.shields.io/badge/OpenZeppelin-5.2.0-blue)](https://docs.openzeppelin.com/contracts/5.x/)
-[![Polygon](https://img.shields.io/badge/Network-Polygon%20|%20Ethereum%20|%20BSC-purple)](https://polygon.technology/)
 
-## 📖 Whitepaper
+## 📖 Overview
 
-DBTC è un token ERC20 deflazionistico con meccanismo di burn integrato. Nasce con **250.000.000 DBTC** e brucia l'1% di ogni transazione fino a raggiungere l'offerta finale di **21.000.000 DBTC** – una riduzione del **91,6%**.
+DBTC is a deflationary ERC20 token with an integrated burn mechanism. It starts with an initial supply of **250,000,000 DBTC** and burns 1% of every transaction until it reaches the final supply of **21,000,000 DBTC** – a **91.6% reduction**.
 
-Ispirato al modello di scarsità di Bitcoin, DBTC incentiva la detenzione a lungo termine e crea pressione deflazionistica automatica: più il token viene scambiato, più velocemente diventa scarso.
+Inspired by Bitcoin's scarcity model, DBTC incentivizes long-term holding and creates automatic deflationary pressure: the more the token is traded, the faster it becomes scarce.
 
 ---
 
 ## 📊 Tokenomics
 
-| Parametro | Valore |
-|-----------|--------|
-| **Offerta iniziale** | 250.000.000 DBTC |
-| **Offerta finale** | 21.000.000 DBTC 🔥 |
-| **Riduzione totale** | -91,6% |
-| **Tassa sulle transazioni** | 1% (100 bps) |
-| **Destinazione tassa** | 100% bruciata fino al target |
+| Parameter | Value |
+|-----------|-------|
+| **Initial Supply** | 250,000,000 DBTC |
+| **Final Supply** | 21,000,000 DBTC 🔥 |
+| **Total Reduction** | -91.6% |
+| **Transaction Tax** | 1% (100 bps) |
+| **Tax Destination** | 100% burned until target |
 | **Standard** | ERC20, ERC20Permit, ERC1363 |
-| **Network** | Ethereum, Polygon, BSC, L2 |
+| **Network** | Ethereum, Polygon, BSC, L2s |
 
-### 📈 Meccanismo di burn
-La tassa si applica a **tutti i trasferimenti, senza esclusioni**. Il burn si ferma automaticamente quando la supply totale raggiunge 21M. Dopo il target, la tassa potrà essere reindirizzata a staking rewards e treasury.
+### 🔥 Burn Mechanism
+The tax applies to **all transfers, with no exclusions**. Burning stops automatically when the total supply reaches 21M. After the target, the tax can be redirected to staking rewards and treasury.
 
 ```solidity
-// Esempio: trasferimento di 1000 DBTC
-// Tassa: 10 DBTC bruciati
-// Ricevuto: 990 DBTC
-🔧 Distribuzione iniziale (da implementare con DBTC-distributor)
-Destinazione	%	DBTC	Vesting
-Team & Founder	30%	75.000.000	12 mesi cliff + 24 mesi lineare
-Community & Staking	25%	62.500.000	48 mesi lineare
-Liquidità iniziale	20%	50.000.000	LP bloccati 12 mesi
-Marketing & Partnership	10%	25.000.000	6 mesi cliff + 12 mesi lineare
-Ecosystem Fund	10%	25.000.000	24 mesi cliff + 48 mesi lineare
-Airdrop	5%	12.500.000	3 mesi lineare
-Totale: 250.000.000 DBTC
+// Example: transfer of 1000 DBTC
+// Tax: 10 DBTC burned
+// Received: 990 DBTC
+📍 Deployed Contract
+Network	Address
+L1 (Ethereum/Mainnet)	0xe972BbB8bB357418131951CcEaec9d8A5993bea2
+🔧 Initial Distribution (managed by DBTC-distributor)
+Allocation	%	DBTC	Vesting
+Team & Founder	30%	75,000,000	12 months cliff + 24 months linear
+Community & Staking	25%	62,500,000	48 months linear
+Initial Liquidity	20%	50,000,000	LP locked 12 months
+Marketing & Partnership	10%	25,000,000	6 months cliff + 12 months linear
+Ecosystem Fund	10%	25,000,000	24 months cliff + 48 months linear
+Airdrop	5%	12,500,000	3 months linear
+Total: 250,000,000 DBTC
 
-🛠️ Tecnologie
+🛠️ Technology Stack
 Solidity 0.8.20
 
 OpenZeppelin 5.2.0 (ERC20, ERC20Permit, ERC1363, Ownable2Step, Pausable, ReentrancyGuard)
 
-Foundry (test, deploy, build)
+Foundry (testing, deployment, build)
 
-EVM Paris (compatibile con tutte le chain principali)
+EVM Paris (compatible with all major chains)
 
 🚀 Quick Start
 bash
-# Clona il repository
+# Clone the repository
 git clone https://github.com/josat123/DBTC-core.git
 cd DBTC-core
 
-# Installa le dipendenze
+# Install dependencies
 forge install
 
-# Compila
+# Compile
 forge build
 
-# Esegui i test
+# Run tests
 forge test
 
-# Deploy su testnet (es. Amoy)
+# Deploy to testnet (e.g., Amoy)
 forge script script/Deploy.s.sol --rpc-url amoy --broadcast --verify
-📁 Struttura del contratto
+📁 Contract Structure
 solidity
 contract DeflationaryBTC is ERC20, ERC20Permit, ERC1363, Ownable2Step, Pausable, ReentrancyGuard {
     uint256 public constant INITIAL_SUPPLY = 250_000_000 * 10**18;
@@ -88,31 +90,20 @@ contract DeflationaryBTC is ERC20, ERC20Permit, ERC1363, Ownable2Step, Pausable,
     function pause() external onlyOwner;
     function unpause() external onlyOwner;
 }
-🔐 Sicurezza
-Nessuna esclusione dalla tassa – trasparenza totale
+🔐 Security Features
+No tax exclusions – full transparency
 
-Nessun mint post-deploy – supply fissa iniziale
+No post-deploy minting – fixed initial supply
 
-Ownable2Step – trasferimento proprietà in due step
+Ownable2Step – two-step ownership transfer
 
-Pausable – emergenze gestibili
+Pausable – emergency stop mechanism
 
-ReentrancyGuard – protezione da attacchi
+ReentrancyGuard – protection against reentrancy attacks
 
-ERC20Permit – approvazioni gasless
+ERC20Permit – gasless approvals
 
-ERC1363 – transferAndCall per interazioni avanzate
+ERC1363 – transferAndCall for advanced interactions
 
-📄 Whitepaper completo
-Il whitepaper dettagliato è disponibile nella cartella /whitepaper.
-
-📬 Contatti
-GitHub: @josat123
-
-Repository: DBTC-core
-
-Prossimo: DBTC-distributor (in arrivo)
-
-⚖️ License
-MIT © 2025 DBTC Team
-
+📄 License
+MIT © 2026 DBTC Team
