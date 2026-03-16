@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBTC – The First Deflationary Bitcoin Ecosystem</title>
+    <meta name="description" content="DBTC: Revolutionary deflationary token with 1% automatic burn on every transaction. Owner renounced, fully transparent, target supply 21M.">
+    <link rel="icon" type="image/svg+xml" href="https://www.dwjcrypto.com/eth/DBTC.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Modern CSS with Light/Dark Theme */
+        :root {
+            /* Dark theme (default) */
+            --primary: #0a0b0d;
+            --secondary: #15171a;
+            --accent: #3b82f6;
+            --accent-light: #60a5fa;
+            --text: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --border: #334155;
+            --card-bg: #1e1e24;
+            --header-bg: rgba(10, 11, 13, 0.95);
+            --gradient-start: #0a0b0d;
+            --gradient-end: #15171a;
+            --logo-filter: brightness(0) invert(1);
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+            --glow: 0 0 15px rgba(59, 130, 246, 0.3);
+        }
+
+        [data-theme="light"] {
+            --primary: #f8fafc;
+            --secondary: #ffffff;
+            --accent: #2563eb;
+            --accent-light: #3b82f6;
+            --text: #0f172a;
+            --text-secondary: #334155;
+            --text-muted: #64748b;
+            --success: #059669;
+            --warning: #d97706;
+            --danger: #dc2626;
+            --border: #e2e8f0;
+            --card-bg: #ffffff;
+            --header-bg: rgba(255, 255, 255, 0.95);
+            --gradient-start: #f8fafc;
+            --gradient-end: #ffffff;
+            --logo-filter: brightness(0) saturate(100%);
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            --glow: 0 0 15px rgba(37, 99, 235, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background-color: var(--primary);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--header-bg);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+            transition: background-color 0.3s;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+            filter: var(--logo-filter);
+            transition: filter 0.3s;
+        }
+
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .theme-toggle {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+            font-size: 0.875rem;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .language-selector {
+            display: flex;
+            gap: 8px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.875rem;
+        }
+
+        .lang-btn.active {
+            background-color: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .lang-btn:hover:not(.active) {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            padding: 6rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent);
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: var(--text-secondary);
+        }
+
+        .contract-address {
+            background-color: rgba(59, 130, 246, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1.5rem auto;
+            max-width: 600px;
+            word-break: break-all;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            color: var(--accent);
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 0.875rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 0.5rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: var(--glow);
+        }
+
+        .btn:hover {
+            background-color: var(--accent-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-success:hover {
+            background-color: #0d9c6d;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent);
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background-color: var(--card-bg);
+            padding: 2.5rem 2rem;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: var(--glow);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-top: 1.5rem;
+            text-align: left;
+        }
+
+        .feature-list li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .feature-list i {
+            color: var(--success);
+        }
+
+        /* How to Buy Section */
+        .buy-steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            padding: 2rem 1.5rem;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+
+        .step:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            line-height: 50px;
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            color: white;
+            box-shadow: var(--glow);
+        }
+
+        .step h3 {
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .step p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Tokenomics */
+        .tokenomics {
+            background-color: var(--secondary);
+        }
+
+        .tokenomics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .tokenomic-item {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+
+        .tokenomic-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .tokenomic-label {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        /* Vesting Table */
+        .vesting-table {
+            width: 100%;
+            margin-top: 3rem;
+            border-collapse: collapse;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .vesting-table th {
+            background-color: var(--accent);
+            color: white;
+            padding: 1rem;
+            font-weight: 600;
+        }
+
+        .vesting-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        .vesting-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .vesting-table td:first-child {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        /* Bridge Info */
+        .bridge-info {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+
+        .bridge-addresses {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .bridge-address-item {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .bridge-address-item h4 {
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .bridge-address-item code {
+            background-color: var(--primary);
+            padding: 0.5rem;
+            border-radius: 6px;
+            color: var(--accent);
+            font-size: 0.8rem;
+            word-break: break-all;
+            display: inline-block;
+            border: 1px solid var(--border);
+        }
+
+        /* Airdrop Section */
+        .airdrop-section {
+            text-align: center;
+        }
+
+        .airdrop-box {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 3rem;
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+
+        .airdrop-features {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .airdrop-feature {
+            text-align: center;
+        }
+
+        .airdrop-feature i {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .airdrop-feature span {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .airdrop-note {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background-color: rgba(245, 158, 11, 0.1);
+            border-radius: 8px;
+            color: var(--warning);
+            font-size: 0.9rem;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 3rem 0 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .social-links a {
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            transition: all 0.2s;
+        }
+
+        .social-links a:hover {
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .contact a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .contact a:hover {
+            color: var(--accent);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            width: 100%;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            background-color: var(--accent);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            z-index: 99;
+            border: none;
+            font-size: 1.25rem;
+            box-shadow: var(--glow);
+        }
+
+        .back-to-top:hover {
+            background-color: var(--accent-light);
+            transform: translateY(-3px);
+        }
+
+        /* Scroll menu */
+        .scroll-menu {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 99;
+        }
+
+        .menu-trigger {
+            background-color: var(--accent);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            font-size: 1.25rem;
+            box-shadow: var(--glow);
+        }
+
+        .menu-trigger:hover {
+            background-color: var(--accent-light);
+        }
+
+        .menu-items {
+            position: absolute;
+            bottom: 60px;
+            right: 0;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 0.5rem 0;
+            min-width: 180px;
+            display: none;
+            flex-direction: column;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+
+        .menu-items a {
+            padding: 0.75rem 1.5rem;
+            color: var(--text);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .menu-items a:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: var(--accent);
+        }
+
+        .scroll-menu.open .menu-items {
+            display: flex;
+        }
+
+        /* Language Content */
+        .lang-content {
+            display: none;
+        }
+
+        .lang-content.active {
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.125rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .stats-bar {
+                gap: 2rem;
+            }
+
+            .stat-value {
+                font-size: 2rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+            }
+
+            .back-to-top, .scroll-menu {
+                bottom: 1rem;
+            }
+
+            .back-to-top {
+                left: 1rem;
+            }
+
+            .scroll-menu {
+                right: 1rem;
+            }
+
+            .airdrop-box {
+                padding: 2rem 1.5rem;
+            }
+
+            .vesting-table {
+                font-size: 0.9rem;
+            }
+
+            .vesting-table td, .vesting-table th {
+                padding: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body data-theme="dark">
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="https://www.dwjcrypto.com/eth/DBTC.svg" alt="DBTC Logo">
+                    <span class="logo-text">DBTC</span>
+                </div>
+                <div class="nav-actions">
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                        <span data-translate="theme">Theme</span>
+                    </button>
+                    <div class="language-selector">
+                        <button class="lang-btn active" data-lang="en">EN</button>
+                        <button class="lang-btn" data-lang="it">IT</button>
+                        <button class="lang-btn" data-lang="es">ES</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <!-- English Content -->
+            <div class="lang-content active" id="content-en">
+                <div class="hero-badge">🔥 The First Deflationary Bitcoin Ecosystem</div>
+                <h1>DeflationaryBTC (DBTC)</h1>
+                <p>Automatic 1% burn on every transaction. Owner renounced. Fully transparent. Target supply: 21M.</p>
+                <div class="contract-address">
+                    Contract: 0xe972BbB8bB357418131951CcEaec9d8A5993bea2
+                </div>
+                <a href="https://etherscan.io/address/0xe972BbB8bB357418131951CcEaec9d8A5993bea2#code" class="btn" target="_blank">
+                    <i class="fas fa-file-contract"></i> View Contract
+                </a>
+                <a href="#tokenomics" class="btn btn-outline">
+                    <i class="fas fa-chart-pie"></i> Tokenomics
+                </a>
+            </div>
+            
+            <!-- Italian Content -->
+            <div class="lang-content" id="content-it">
+                <div class="hero-badge">🔥 Il Primo Ecosistema Bitcoin Deflazionistico</div>
+                <h1>DeflationaryBTC (DBTC)</h1>
+                <p>Bruciatura automatica dell'1% su ogni transazione. Proprietà rinunciata. Completamente trasparente. Obiettivo: 21M.</p>
+                <div class="contract-address">
+                    Contratto: 0xe972BbB8bB357418131951CcEaec9d8A5993bea2
+                </div>
+                <a href="https://etherscan.io/address/0xe972BbB8bB357418131951CcEaec9d8A5993bea2#code" class="btn" target="_blank">
+                    <i class="fas fa-file-contract"></i> Vedi Contratto
+                </a>
+                <a href="#tokenomics" class="btn btn-outline">
+                    <i class="fas fa-chart-pie"></i> Tokenomics
+                </a>
+            </div>
+            
+            <!-- Spanish Content -->
+            <div class="lang-content" id="content-es">
+                <div class="hero-badge">🔥 El Primer Ecosistema Bitcoin Deflacionario</div>
+                <h1>DeflationaryBTC (DBTC)</h1>
+                <p>Quema automática del 1% en cada transacción. Propiedad renunciada. Completamente transparente. Objetivo: 21M.</p>
+                <div class="contract-address">
+                    Contrato: 0xe972BbB8bB357418131951CcEaec9d8A5993bea2
+                </div>
+                <a href="https://etherscan.io/address/0xe972BbB8bB357418131951CcEaec9d8A5993bea2#code" class="btn" target="_blank">
+                    <i class="fas fa-file-contract"></i> Ver Contrato
+                </a>
+                <a href="#tokenomics" class="btn btn-outline">
+                    <i class="fas fa-chart-pie"></i> Tokenomics
+                </a>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <div class="stat-value">250M</div>
+                    <div class="stat-label">Initial Supply</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">21M</div>
+                    <div class="stat-label">Target Supply</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">1%</div>
+                    <div class="stat-label">Burn per TX</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">0x000...000</div>
+                    <div class="stat-label">Owner</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features">
+        <div class="container">
+            <h2 class="section-title" data-translate="features-title">Why DBTC?</h2>
+            <p class="section-subtitle" data-translate="features-subtitle">Built-in deflationary mechanics designed for sustainable growth</p>
+            
+            <div class="features">
+                <!-- English Content -->
+                <div class="lang-content active">
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-fire"></i></div>
+                        <h3>Automatic 1% Burn</h3>
+                        <p>Every DBTC transaction incurs a 1% tax that is automatically burned, permanently reducing supply until the final target of 21M tokens.</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> No exceptions, no whitelist</li>
+                            <li><i class="fas fa-check"></i> Visible on-chain</li>
+                            <li><i class="fas fa-check"></i> Irreversible mechanism</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-lock"></i></div>
+                        <h3>Owner Renounced</h3>
+                        <p>The contract owner has been set to address(0). No one can mint new tokens, pause trading, or modify the contract.</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> Truly decentralized</li>
+                            <li><i class="fas fa-check"></i> No admin keys</li>
+                            <li><i class="fas fa-check"></i> Immutable rules</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                        <h3>Deflationary Target</h3>
+                        <p>Starting from 250M, the supply will decrease through burning until reaching Bitcoin's final supply of 21M DBTC.</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> Scarcity increases over time</li>
+                            <li><i class="fas fa-check"></i> Bitcoin-like economics</li>
+                            <li><i class="fas fa-check"></i> Transparent burning</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Italian Content -->
+                <div class="lang-content">
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-fire"></i></div>
+                        <h3>Bruciatura Automatica 1%</h3>
+                        <p>Ogni transazione DBTC subisce una tassa dell'1% che viene automaticamente bruciata, riducendo permanentemente la fornitura fino all'obiettivo finale di 21M token.</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> Nessuna eccezione, nessuna whitelist</li>
+                            <li><i class="fas fa-check"></i> Visibile on-chain</li>
+                            <li><i class="fas fa-check"></i> Meccanismo irreversibile</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-lock"></i></div>
+                        <h3>Proprietà Rinunciata</h3>
+                        <p>Il proprietario del contratto è stato impostato a address(0). Nessuno può coniare nuovi token, mettere in pausa il trading o modificare il contratto.</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> Veramente decentralizzato</li>
+                            <li><i class="fas fa-check"></i> Nessuna chiave admin</li>
+                            <li><i class="fas fa-check"></i> Regole immutabili</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                        <h3>Obiettivo Deflazionistico</h3>
+                        <p>Partendo da 250M, la fornitura diminuirà attraverso la bruciatura fino a raggiungere la fornitura finale di Bitcoin: 21M DBTC.</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> Scarsità aumenta nel tempo</li>
+                            <li><i class="fas fa-check"></i> Economia simile a Bitcoin</li>
+                            <li><i class="fas fa-check"></i> Bruciatura trasparente</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Spanish Content -->
+                <div class="lang-content">
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-fire"></i></div>
+                        <h3>Quema Automática 1%</h3>
+                        <p>Cada transacción DBTC incurre en un impuesto del 1% que se quema automáticamente, reduciendo permanentemente el suministro hasta el objetivo final de 21M tokens.</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> Sin excepciones, sin whitelist</li>
+                            <li><i class="fas fa-check"></i> Visible en cadena</li>
+                            <li><i class="fas fa-check"></i> Mecanismo irreversible</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-lock"></i></div>
+                        <h3>Propiedad Renunciada</h3>
+                        <p>El propietario del contrato se ha establecido en address(0). Nadie puede acuñar nuevos tokens, pausar el trading o modificar el contrato.</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> Verdaderamente descentralizado</li>
+                            <li><i class="fas fa-check"></i> Sin claves admin</li>
+                            <li><i class="fas fa-check"></i> Reglas inmutables</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                        <h3>Objetivo Deflacionario</h3>
+                        <p>Comenzando desde 250M, el suministro disminuirá mediante la quema hasta alcanzar el suministro final de Bitcoin: 21M DBTC.</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> Escasez aumenta con el tiempo</li>
+                            <li><i class="fas fa-check"></i> Economía similar a Bitcoin</li>
+                            <li><i class="fas fa-check"></i> Quema transparente</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tokenomics Section -->
+    <section id="tokenomics" class="tokenomics">
+        <div class="container">
+            <h2 class="section-title" data-translate="tokenomics-title">Tokenomics</h2>
+            <p class="section-subtitle" data-translate="tokenomics-subtitle">Fully transparent distribution based on actual contract data</p>
+            
+            <div class="tokenomics-grid">
+                <div class="tokenomic-item">
+                    <div class="tokenomic-value">250M</div>
+                    <div class="tokenomic-label">Initial Supply</div>
+                </div>
+                <div class="tokenomic-item">
+                    <div class="tokenomic-value">21M</div>
+                    <div class="tokenomic-label">Final Supply</div>
+                </div>
+                <div class="tokenomic-item">
+                    <div class="tokenomic-value">1%</div>
+                    <div class="tokenomic-label">Burn per TX</div>
+                </div>
+                <div class="tokenomic-item">
+                    <div class="tokenomic-value">0</div>
+                    <div class="tokenomic-label">Owner</div>
+                </div>
+            </div>
+
+            <!-- Vesting Table -->
+            <h3 style="margin: 3rem 0 1.5rem; text-align: center; color: var(--text);">Initial Distribution (All Tokens in Distributor)</h3>
+            <table class="vesting-table">
+                <thead>
+                    <tr>
+                        <th>Allocation</th>
+                        <th>%</th>
+                        <th>Tokens</th>
+                        <th>Vesting</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Team & Founder</td>
+                        <td>30%</td>
+                        <td>75,000,000</td>
+                        <td>12 months cliff + 24 months linear</td>
+                    </tr>
+                    <tr>
+                        <td>Community & Staking</td>
+                        <td>25%</td>
+                        <td>62,500,000</td>
+                        <td>48 months linear</td>
+                    </tr>
+                    <tr>
+                        <td>Initial Liquidity</td>
+                        <td>20%</td>
+                        <td>50,000,000</td>
+                        <td>LP locked 12 months</td>
+                    </tr>
+                    <tr>
+                        <td>Marketing & Partnership</td>
+                        <td>10%</td>
+                        <td>25,000,000</td>
+                        <td>6 months cliff + 12 months linear</td>
+                    </tr>
+                    <tr>
+                        <td>Ecosystem Fund</td>
+                        <td>10%</td>
+                        <td>25,000,000</td>
+                        <td>24 months cliff + 48 months linear</td>
+                    </tr>
+                    <tr>
+                        <td>Airdrop</td>
+                        <td>5%</td>
+                        <td>12,500,000</td>
+                        <td>3 months linear</td>
+                    </tr>
+                    <tr style="background-color: rgba(59, 130, 246, 0.1);">
+                        <td><strong>TOTAL</strong></td>
+                        <td><strong>100%</strong></td>
+                        <td><strong>250,000,000</strong></td>
+                        <td><strong>All tokens locked in distributor</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Bridge Info -->
+            <div class="bridge-info">
+                <h3 style="margin-bottom: 1rem; color: var(--text);">🌉 Cross-Chain Bridge</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 1rem;">DBTC can be bridged between Ethereum L1 and Polygon L2 using the Universal Bridge.</p>
+                <div class="bridge-addresses">
+                    <div class="bridge-address-item">
+                        <h4>Bridge L1 (Ethereum)</h4>
+                        <code>0xe8681d55585FcDA6a4a39c9a59f39b63fbBa88e8</code>
+                    </div>
+                    <div class="bridge-address-item">
+                        <h4>Bridge L2 (Polygon)</h4>
+                        <code>0x0Ef6a63a16fB21dD8398183a154596953Ce4E835</code>
+                    </div>
+                    <div class="bridge-address-item">
+                        <h4>Messenger</h4>
+                        <code>0x25ace71c97b33cC4724cf772e9b8B8F980f9d3B5</code>
+                    </div>
+                </div>
+                <p style="color: var(--text-secondary); margin-top: 1rem; font-size: 0.9rem;">
+                    <i class="fas fa-info-circle"></i> Fee: 0.05% • ~5 min transfer time
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Buy Section -->
+    <section id="how-to-buy">
+        <div class="container">
+            <h2 class="section-title" data-translate="buy-title">How to Buy DBTC</h2>
+            <p class="section-subtitle" data-translate="buy-subtitle">No presale. Only available on decentralized exchanges.</p>
+            
+            <div class="buy-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3 data-translate="step1-title">Get POL/MATIC</h3>
+                    <p data-translate="step1-desc">Buy POL (ex-MATIC) on a centralized exchange and send to your wallet.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3 data-translate="step2-title">Switch to Polygon</h3>
+                    <p data-translate="step2-desc">Add Polygon network to MetaMask and bridge your funds if needed.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3 data-translate="step3-title">Go to QuickSwap</h3>
+                    <p data-translate="step3-desc">Visit QuickSwap, connect wallet, and swap POL for DBTC.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3 data-translate="step4-title">HODL or LP</h3>
+                    <p data-translate="step4-desc">Hold DBTC or provide liquidity to earn fees.</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="https://quickswap.exchange/#/swap?outputCurrency=0xe972BbB8bB357418131951CcEaec9d8A5993bea2" class="btn" target="_blank">
+                    <i class="fas fa-exchange-alt"></i> Buy on QuickSwap
+                </a>
+                <a href="https://app.uniswap.org/#/swap?outputCurrency=0xe972BbB8bB357418131951CcEaec9d8A5993bea2&chain=polygon" class="btn btn-outline" target="_blank">
+                    <i class="fas fa-exchange-alt"></i> Buy on Uniswap
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Airdrop Section -->
+    <section id="airdrop" class="tokenomics">
+        <div class="container">
+            <h2 class="section-title" data-translate="airdrop-title">DBTC Airdrop</h2>
+            
+            <div class="airdrop-section">
+                <div class="airdrop-box">
+                    <i class="fas fa-gift" style="font-size: 3rem; color: var(--accent); margin-bottom: 1rem;"></i>
+                    <h3 style="margin-bottom: 1rem; color: var(--text);" data-translate="airdrop-heading">Airdrop Program</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 2rem;" data-translate="airdrop-desc">
+                        A total of 12.5M DBTC (5% of initial supply) is allocated for community airdrop with 3 months linear vesting.
+                    </p>
+                    
+                    <div class="airdrop-features">
+                        <div class="airdrop-feature">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span data-translate="airdrop-vesting">3 months linear</span>
+                        </div>
+                        <div class="airdrop-feature">
+                            <i class="fas fa-users"></i>
+                            <span data-translate="airdrop-eligible">Eligible wallets</span>
+                        </div>
+                        <div class="airdrop-feature">
+                            <i class="fas fa-coins"></i>
+                            <span data-translate="airdrop-amount">12.5M total</span>
+                        </div>
+                    </div>
+
+                    <div class="airdrop-note">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span data-translate="airdrop-note">
+                            Airdrop is managed by the distributor contract. Wallets with POL balance and transaction history are prioritized.
+                        </span>
+                    </div>
+
+                    <p style="margin-top: 2rem; color: var(--text-secondary); font-size: 0.9rem;">
+                        <i class="fas fa-info-circle"></i>
+                        <span data-translate="airdrop-info">
+                            Check your eligibility and claim through the official distributor interface.
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="social-links">
+                    <a href="https://t.me/dwj_token" target="_blank" title="Telegram">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                    <a href="https://x.com/DWJ_Token" target="_blank" title="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://github.com/josat123" target="_blank" title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://github.com/josat123/DBTC" target="_blank" title="GitHub Project">
+                        <i class="fas fa-code-branch"></i>
+                    </a>
+                </div>
+                
+                <div class="contact">
+                    <a href="mailto:admindwjcrypto.com">admindwjcrypto.com</a>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>DeflationaryBTC © 2026 All rights reserved | 1% Tax on ALL transactions - Permanently Burned</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Scroll menu -->
+    <div class="scroll-menu" id="scrollMenu">
+        <button class="menu-trigger">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="menu-items">
+            <a href="#features" data-translate="menu-features">Features</a>
+            <a href="#tokenomics" data-translate="menu-tokenomics">Tokenomics</a>
+            <a href="#how-to-buy" data-translate="menu-buy">How to Buy</a>
+            <a href="#airdrop" data-translate="menu-airdrop">Airdrop</a>
+            <a href="https://github.com/josat123/DBTC" target="_blank">GitHub</a>
+        </div>
+    </div>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            body.setAttribute('data-theme', newTheme);
+            
+            const icon = themeToggle.querySelector('i');
+            if (newTheme === 'dark') {
+                icon.className = 'fas fa-moon';
+            } else {
+                icon.className = 'fas fa-sun';
+            }
+        });
+
+        // Language translations
+        const translations = {
+            en: {
+                'theme': 'Theme',
+                'features-title': 'Why DBTC?',
+                'features-subtitle': 'Built-in deflationary mechanics designed for sustainable growth',
+                'tokenomics-title': 'Tokenomics',
+                'tokenomics-subtitle': 'Fully transparent distribution based on actual contract data',
+                'buy-title': 'How to Buy DBTC',
+                'buy-subtitle': 'No presale. Only available on decentralized exchanges.',
+                'step1-title': 'Get POL/MATIC',
+                'step1-desc': 'Buy POL (ex-MATIC) on a centralized exchange and send to your wallet.',
+                'step2-title': 'Switch to Polygon',
+                'step2-desc': 'Add Polygon network to MetaMask and bridge your funds if needed.',
+                'step3-title': 'Go to QuickSwap',
+                'step3-desc': 'Visit QuickSwap, connect wallet, and swap POL for DBTC.',
+                'step4-title': 'HODL or LP',
+                'step4-desc': 'Hold DBTC or provide liquidity to earn fees.',
+                'airdrop-title': 'DBTC Airdrop',
+                'airdrop-heading': 'Airdrop Program',
+                'airdrop-desc': 'A total of 12.5M DBTC (5% of initial supply) is allocated for community airdrop with 3 months linear vesting.',
+                'airdrop-vesting': '3 months linear',
+                'airdrop-eligible': 'Eligible wallets',
+                'airdrop-amount': '12.5M total',
+                'airdrop-note': 'Airdrop is managed by the distributor contract. Wallets with POL balance and transaction history are prioritized.',
+                'airdrop-info': 'Check your eligibility and claim through the official distributor interface.',
+                'menu-features': 'Features',
+                'menu-tokenomics': 'Tokenomics',
+                'menu-buy': 'How to Buy',
+                'menu-airdrop': 'Airdrop'
+            },
+            it: {
+                'theme': 'Tema',
+                'features-title': 'Perché DBTC?',
+                'features-subtitle': 'Meccanismi deflazionistici integrati per una crescita sostenibile',
+                'tokenomics-title': 'Tokenomics',
+                'tokenomics-subtitle': 'Distribuzione completamente trasparente basata sui dati del contratto',
+                'buy-title': 'Come Comprare DBTC',
+                'buy-subtitle': 'Nessuna presale. Disponibile solo su exchange decentralizzati.',
+                'step1-title': 'Ottieni POL/MATIC',
+                'step1-desc': 'Compra POL (ex-MATIC) su un exchange centralizzato e invia al tuo wallet.',
+                'step2-title': 'Passa a Polygon',
+                'step2-desc': 'Aggiungi la rete Polygon a MetaMask e fai il bridge se necessario.',
+                'step3-title': 'Vai su QuickSwap',
+                'step3-desc': 'Visita QuickSwap, connetti il wallet e scambia POL per DBTC.',
+                'step4-title': 'HODL o LP',
+                'step4-desc': 'Tieni DBTC o fornisci liquidità per guadagnare commissioni.',
+                'airdrop-title': 'Airdrop DBTC',
+                'airdrop-heading': 'Programma Airdrop',
+                'airdrop-desc': 'Un totale di 12.5M DBTC (5% della fornitura iniziale) è allocato per l\'airdrop della community con vesting lineare di 3 mesi.',
+                'airdrop-vesting': '3 mesi lineari',
+                'airdrop-eligible': 'Wallet idonei',
+                'airdrop-amount': '12.5M totali',
+                'airdrop-note': 'L\'airdrop è gestito dal contratto distributore. I wallet con saldo POL e cronologia transazioni sono prioritari.',
+                'airdrop-info': 'Verifica la tua idoneità e richiedi tramite l\'interfaccia ufficiale del distributore.',
+                'menu-features': 'Caratteristiche',
+                'menu-tokenomics': 'Tokenomics',
+                'menu-buy': 'Come Comprare',
+                'menu-airdrop': 'Airdrop'
+            },
+            es: {
+                'theme': 'Tema',
+                'features-title': '¿Por Qué DBTC?',
+                'features-subtitle': 'Mecánicas deflacionarias integradas para un crecimiento sostenible',
+                'tokenomics-title': 'Tokenomics',
+                'tokenomics-subtitle': 'Distribución completamente transparente basada en datos reales del contrato',
+                'buy-title': 'Cómo Comprar DBTC',
+                'buy-subtitle': 'Sin preventa. Solo disponible en exchanges descentralizados.',
+                'step1-title': 'Obtén POL/MATIC',
+                'step1-desc': 'Compra POL (ex-MATIC) en un exchange centralizado y envía a tu wallet.',
+                'step2-title': 'Cambia a Polygon',
+                'step2-desc': 'Añade la red Polygon a MetaMask y haz bridge si es necesario.',
+                'step3-title': 'Ve a QuickSwap',
+                'step3-desc': 'Visita QuickSwap, conecta tu wallet y cambia POL por DBTC.',
+                'step4-title': 'HODL o LP',
+                'step4-desc': 'Mantén DBTC o provee liquidez para ganar comisiones.',
+                'airdrop-title': 'Airdrop DBTC',
+                'airdrop-heading': 'Programa Airdrop',
+                'airdrop-desc': 'Un total de 12.5M DBTC (5% del suministro inicial) está asignado para airdrop comunitario con vesting lineal de 3 meses.',
+                'airdrop-vesting': '3 meses lineal',
+                'airdrop-eligible': 'Wallets elegibles',
+                'airdrop-amount': '12.5M total',
+                'airdrop-note': 'El airdrop es gestionado por el contrato distribuidor. Los wallets con saldo POL e historial de transacciones tienen prioridad.',
+                'airdrop-info': 'Verifica tu elegibilidad y reclama a través de la interfaz oficial del distribuidor.',
+                'menu-features': 'Características',
+                'menu-tokenomics': 'Tokenomics',
+                'menu-buy': 'Cómo Comprar',
+                'menu-airdrop': 'Airdrop'
+            }
+        };
+
+        // Language switcher
+        const langButtons = document.querySelectorAll('.lang-btn');
+        const langContents = document.querySelectorAll('.lang-content');
+        
+        function setLanguage(lang) {
+            // Update active button
+            langButtons.forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+            });
+            
+            // Show content for selected language
+            langContents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            document.querySelectorAll(`.lang-content[data-lang="${lang}"], .lang-content:not([data-lang])`).forEach(content => {
+                content.classList.add('active');
+            });
+            
+            // Update elements with data-translate
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+        }
+
+        langButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const lang = this.getAttribute('data-lang');
+                setLanguage(lang);
+            });
+        });
+
+        // Back to top button
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.style.display = 'flex';
+            } else {
+                backToTop.style.display = 'none';
+            }
+        });
+        
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Scroll menu
+        const menuTrigger = document.querySelector('.menu-trigger');
+        const scrollMenu = document.getElementById('scrollMenu');
+        
+        menuTrigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            scrollMenu.classList.toggle('open');
+        });
+
+        document.addEventListener('click', () => {
+            scrollMenu.classList.remove('open');
+        });
+
+        scrollMenu.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Initialize with English
+        setLanguage('en');
+    </script>
+</body>
+</html>
