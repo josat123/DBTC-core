@@ -5,37 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DBTC – The First Deflationary Bitcoin Ecosystem</title>
     <meta name="description" content="DBTC: Revolutionary deflationary token with 1% automatic burn on every transaction. Owner renounced, fully transparent, target supply 21M.">
-    <link rel="icon" type="image/svg+xml" href="https://www.dwjcrypto.com/eth/DBTC.svg">
+    <link rel="icon" type="image/svg+xml" href="https://raw.githubusercontent.com/josat123/DBTC-core/main/assets/images/dbtc.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Modern CSS with Light/Dark Theme */
+        /* Modern CSS with Light/Dark Theme - Professional 3D Design */
         :root {
-            /* Dark theme (default) */
+            /* Dark theme (default) - 3D Enhanced */
             --primary: #0a0b0d;
             --secondary: #15171a;
-            --accent: #3b82f6;
-            --accent-light: #60a5fa;
+            --accent: #2563eb;
+            --accent-light: #3b82f6;
+            --accent-glow: rgba(37, 99, 235, 0.5);
             --text: #f8fafc;
             --text-secondary: #94a3b8;
             --text-muted: #64748b;
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
-            --border: #334155;
-            --card-bg: #1e1e24;
-            --header-bg: rgba(10, 11, 13, 0.95);
+            --border: #1e293b;
+            --card-bg: #1a1c20;
+            --header-bg: rgba(10, 11, 13, 0.98);
             --gradient-start: #0a0b0d;
-            --gradient-end: #15171a;
+            --gradient-end: #1a1c20;
             --logo-filter: brightness(0) invert(1);
-            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
-            --glow: 0 0 15px rgba(59, 130, 246, 0.3);
+            --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+            --glow: 0 0 30px rgba(37, 99, 235, 0.4);
+            --glow-hover: 0 0 40px rgba(37, 99, 235, 0.6);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --card-transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+            --card-transform-hover: perspective(1000px) rotateX(2deg) rotateY(2deg) translateY(-10px);
         }
 
         [data-theme="light"] {
             --primary: #f8fafc;
-            --secondary: #ffffff;
+            --secondary: #f1f5f9;
             --accent: #2563eb;
             --accent-light: #3b82f6;
+            --accent-glow: rgba(37, 99, 235, 0.3);
             --text: #0f172a;
             --text-secondary: #334155;
             --text-muted: #64748b;
@@ -44,12 +51,13 @@
             --danger: #dc2626;
             --border: #e2e8f0;
             --card-bg: #ffffff;
-            --header-bg: rgba(255, 255, 255, 0.95);
+            --header-bg: rgba(255, 255, 255, 0.98);
             --gradient-start: #f8fafc;
-            --gradient-end: #ffffff;
+            --gradient-end: #f1f5f9;
             --logo-filter: brightness(0) saturate(100%);
-            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-            --glow: 0 0 15px rgba(37, 99, 235, 0.2);
+            --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.2);
+            --glow: 0 0 30px rgba(37, 99, 235, 0.2);
+            --glow-hover: 0 0 40px rgba(37, 99, 235, 0.3);
         }
 
         * {
@@ -65,13 +73,31 @@
             line-height: 1.6;
             overflow-x: hidden;
             transition: background-color 0.3s, color 0.3s;
+            font-size: 16px;
+            scroll-behavior: smooth;
         }
 
         .container {
             width: 90%;
-            max-width: 1200px;
+            max-width: 1280px;
             margin: 0 auto;
             padding: 0 20px;
+        }
+
+        /* 3D Background Effect */
+        .bg-3d {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+            pointer-events: none;
+            background: 
+                radial-gradient(circle at 20% 30%, var(--accent-glow) 0%, transparent 30%),
+                radial-gradient(circle at 80% 70%, var(--accent-glow) 0%, transparent 40%);
+            filter: blur(60px);
         }
 
         /* Header */
@@ -84,6 +110,7 @@
             z-index: 1000;
             border-bottom: 1px solid var(--border);
             transition: background-color 0.3s;
+            box-shadow: var(--shadow);
         }
 
         .header-content {
@@ -102,15 +129,20 @@
             height: 40px;
             width: auto;
             filter: var(--logo-filter);
-            transition: filter 0.3s;
+            transition: filter 0.3s, transform 0.3s;
+        }
+
+        .logo:hover img {
+            transform: scale(1.05);
         }
 
         .logo-text {
-            font-size: 1.25rem;
-            font-weight: 700;
+            font-size: 1.5rem;
+            font-weight: 800;
             background: linear-gradient(135deg, var(--accent), var(--accent-light));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
         }
 
         .nav-actions {
@@ -124,48 +156,59 @@
             border: 1px solid var(--border);
             color: var(--text);
             padding: 0.5rem 1rem;
-            border-radius: 6px;
+            border-radius: var(--radius-sm);
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 0.5rem;
             transition: all 0.3s;
             font-size: 0.875rem;
+            font-weight: 500;
         }
 
         .theme-toggle:hover {
             border-color: var(--accent);
-            background: rgba(59, 130, 246, 0.1);
+            background: rgba(37, 99, 235, 0.1);
+            transform: translateY(-2px);
+            box-shadow: var(--glow);
         }
 
         .language-selector {
             display: flex;
-            gap: 8px;
+            gap: 4px;
+            background: var(--card-bg);
+            padding: 4px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
         .lang-btn {
             background: transparent;
-            border: 1px solid var(--border);
+            border: none;
             color: var(--text-secondary);
             padding: 6px 12px;
             border-radius: 6px;
             cursor: pointer;
             transition: all 0.2s;
             font-size: 0.875rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
         }
 
         .lang-btn.active {
             background-color: var(--accent);
             color: white;
-            border-color: var(--accent);
+            box-shadow: var(--glow);
         }
 
         .lang-btn:hover:not(.active) {
-            border-color: var(--accent);
             color: var(--accent);
+            background: rgba(37, 99, 235, 0.1);
+            transform: translateY(-1px);
         }
 
-        /* Hero Section */
+        /* Hero Section - 3D Enhanced */
         .hero {
             background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
             padding: 6rem 0;
@@ -177,14 +220,20 @@
         .hero::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
             background: 
-                radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
+                radial-gradient(circle at 30% 30%, var(--accent-glow) 0%, transparent 30%),
+                radial-gradient(circle at 70% 70%, var(--accent-glow) 0%, transparent 40%);
+            animation: rotate 20s linear infinite;
             z-index: 0;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         .hero .container {
@@ -194,23 +243,30 @@
 
         .hero-badge {
             display: inline-block;
-            background: rgba(59, 130, 246, 0.1);
+            background: rgba(37, 99, 235, 0.2);
+            backdrop-filter: blur(5px);
             color: var(--accent);
             padding: 0.5rem 1.5rem;
-            border-radius: 20px;
+            border-radius: 30px;
             font-size: 0.9rem;
             font-weight: 600;
             margin-bottom: 1.5rem;
-            border: 1px solid rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            box-shadow: var(--glow);
+            transform: perspective(500px) translateZ(10px);
         }
 
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 4rem;
             margin-bottom: 1.5rem;
             font-weight: 800;
-            background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+            background: linear-gradient(135deg, var(--text) 0%, var(--accent) 50%, var(--accent-light) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+            letter-spacing: -1px;
+            text-shadow: 0 20px 30px rgba(0, 0, 0, 0.3);
+            transform: perspective(1000px) translateZ(20px);
         }
 
         .hero p {
@@ -218,19 +274,30 @@
             max-width: 800px;
             margin: 0 auto 2rem;
             color: var(--text-secondary);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .contract-address {
-            background-color: rgba(59, 130, 246, 0.1);
-            padding: 1rem;
-            border-radius: 8px;
+            background-color: rgba(37, 99, 235, 0.15);
+            backdrop-filter: blur(5px);
+            padding: 1.25rem;
+            border-radius: var(--radius);
             margin: 1.5rem auto;
-            max-width: 600px;
+            max-width: 700px;
             word-break: break-all;
             font-family: 'Courier New', monospace;
             font-size: 1rem;
-            border: 1px solid rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(37, 99, 235, 0.3);
             color: var(--accent);
+            letter-spacing: 0.5px;
+            box-shadow: var(--shadow);
+            transform: perspective(1000px) translateZ(5px);
+            transition: transform 0.3s;
+        }
+
+        .contract-address:hover {
+            transform: perspective(1000px) translateZ(15px);
+            box-shadow: var(--glow);
         }
 
         .btn {
@@ -238,7 +305,7 @@
             background-color: var(--accent);
             color: white;
             padding: 0.875rem 2rem;
-            border-radius: 8px;
+            border-radius: var(--radius-sm);
             text-decoration: none;
             font-weight: 600;
             margin: 0.5rem;
@@ -247,12 +314,13 @@
             cursor: pointer;
             font-size: 1rem;
             box-shadow: var(--glow);
+            transform: perspective(500px) translateZ(0);
         }
 
         .btn:hover {
             background-color: var(--accent-light);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+            transform: perspective(500px) translateZ(20px) translateY(-3px);
+            box-shadow: var(--glow-hover);
         }
 
         .btn-outline {
@@ -276,17 +344,31 @@
             background-color: #0d9c6d;
         }
 
-        /* Stats Bar */
+        /* Stats Bar - 3D Cards */
         .stats-bar {
             display: flex;
             justify-content: center;
-            gap: 4rem;
+            gap: 3rem;
             margin-top: 3rem;
             flex-wrap: wrap;
         }
 
         .stat-item {
             text-align: center;
+            padding: 1.5rem 2rem;
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            min-width: 160px;
+            transform: var(--card-transform);
+            transition: all 0.3s;
+        }
+
+        .stat-item:hover {
+            transform: var(--card-transform-hover);
+            border-color: var(--accent);
+            box-shadow: var(--glow);
         }
 
         .stat-value {
@@ -294,6 +376,8 @@
             font-weight: 800;
             color: var(--accent);
             line-height: 1.2;
+            font-family: 'Inter', monospace;
+            text-shadow: 0 0 10px var(--accent-glow);
         }
 
         .stat-label {
@@ -301,24 +385,30 @@
             font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 1px;
+            font-weight: 500;
         }
 
         /* Sections */
         section {
-            padding: 5rem 0;
+            padding: 6rem 0;
+            position: relative;
         }
 
         .section-title {
             text-align: center;
             margin-bottom: 1rem;
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--text);
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--text), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
         }
 
         .section-subtitle {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
             font-size: 1.125rem;
             color: var(--text-secondary);
             max-width: 800px;
@@ -326,42 +416,48 @@
             margin-right: auto;
         }
 
+        /* Features Grid - 3D Cards */
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
         }
 
         .feature-card {
             background-color: var(--card-bg);
-            padding: 2.5rem 2rem;
-            border-radius: 12px;
-            text-align: center;
+            padding: 3rem 2rem;
+            border-radius: var(--radius);
             transition: all 0.3s;
             border: 1px solid var(--border);
             box-shadow: var(--shadow);
+            transform: var(--card-transform);
+            backdrop-filter: blur(10px);
         }
 
         .feature-card:hover {
-            transform: translateY(-5px);
+            transform: var(--card-transform-hover);
             border-color: var(--accent);
             box-shadow: var(--glow);
         }
 
         .feature-icon {
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: var(--accent);
             margin-bottom: 1.5rem;
+            filter: drop-shadow(0 0 15px var(--accent-glow));
         }
 
         .feature-card h3 {
             margin-bottom: 1rem;
-            font-size: 1.5rem;
-            font-weight: 600;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text);
         }
 
         .feature-card p {
             color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 1rem;
         }
 
         .feature-list {
@@ -371,97 +467,128 @@
         }
 
         .feature-list li {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            color: var(--text-secondary);
-        }
-
-        .feature-list i {
-            color: var(--success);
-        }
-
-        /* How to Buy Section */
-        .buy-steps {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .step {
-            flex: 1;
-            min-width: 250px;
-            text-align: center;
-            padding: 2rem 1.5rem;
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow);
-            transition: all 0.3s;
-        }
-
-        .step:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
-        }
-
-        .step-number {
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            background-color: var(--accent);
-            border-radius: 50%;
-            line-height: 50px;
-            font-size: 1.25rem;
-            font-weight: bold;
-            margin-bottom: 1.5rem;
-            color: white;
-            box-shadow: var(--glow);
-        }
-
-        .step h3 {
-            margin-bottom: 1rem;
-            font-size: 1.25rem;
-        }
-
-        .step p {
+            gap: 0.75rem;
             color: var(--text-secondary);
             font-size: 0.95rem;
         }
 
-        /* Tokenomics */
-        .tokenomics {
-            background-color: var(--secondary);
+        .feature-list i {
+            color: var(--success);
+            font-size: 1rem;
         }
 
+        /* Example Transaction Box */
+        .example-box {
+            margin-top: 4rem;
+            background-color: var(--card-bg);
+            padding: 3rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            transform: var(--card-transform);
+            transition: all 0.3s;
+        }
+
+        .example-box:hover {
+            transform: var(--card-transform-hover);
+            border-color: var(--accent);
+            box-shadow: var(--glow);
+        }
+
+        .example-box h3 {
+            margin-bottom: 2rem;
+            color: var(--text);
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .example-flow {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .example-card {
+            flex: 1;
+            min-width: 280px;
+            background-color: var(--primary);
+            padding: 2rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .example-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .example-amount {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .example-burned {
+            color: var(--danger);
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .example-arrow {
+            font-size: 2.5rem;
+            color: var(--accent);
+            filter: drop-shadow(0 0 10px var(--accent-glow));
+        }
+
+        /* Tokenomics Grid */
         .tokenomics-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 2rem;
+            margin-bottom: 4rem;
         }
 
         .tokenomic-item {
             text-align: center;
-            padding: 2rem 1.5rem;
+            padding: 2.5rem 1.5rem;
             background-color: var(--card-bg);
-            border-radius: 12px;
+            border-radius: var(--radius);
             border: 1px solid var(--border);
             box-shadow: var(--shadow);
+            transform: var(--card-transform);
+            transition: all 0.3s;
+        }
+
+        .tokenomic-item:hover {
+            transform: var(--card-transform-hover);
+            border-color: var(--accent);
+            box-shadow: var(--glow);
         }
 
         .tokenomic-value {
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 800;
             color: var(--accent);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
+            font-family: 'Inter', monospace;
+            text-shadow: 0 0 15px var(--accent-glow);
         }
 
         .tokenomic-label {
             color: var(--text-secondary);
             font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
         }
 
         /* Vesting Table */
@@ -470,20 +597,30 @@
             margin-top: 3rem;
             border-collapse: collapse;
             background-color: var(--card-bg);
-            border-radius: 12px;
+            border-radius: var(--radius);
             overflow: hidden;
             box-shadow: var(--shadow);
+            transform: var(--card-transform);
+            transition: all 0.3s;
+        }
+
+        .vesting-table:hover {
+            transform: var(--card-transform-hover);
+            box-shadow: var(--glow);
         }
 
         .vesting-table th {
             background-color: var(--accent);
             color: white;
-            padding: 1rem;
+            padding: 1.25rem 1rem;
             font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.9rem;
         }
 
         .vesting-table td {
-            padding: 1rem;
+            padding: 1.25rem 1rem;
             border-bottom: 1px solid var(--border);
             color: var(--text-secondary);
         }
@@ -497,43 +634,129 @@
             color: var(--text);
         }
 
+        .vesting-table tr:hover td {
+            background-color: rgba(37, 99, 235, 0.05);
+        }
+
         /* Bridge Info */
         .bridge-info {
             background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 2rem;
-            margin-top: 2rem;
+            border-radius: var(--radius);
+            padding: 3rem;
+            margin-top: 3rem;
             border: 1px solid var(--border);
             box-shadow: var(--shadow);
+            transform: var(--card-transform);
+            transition: all 0.3s;
+        }
+
+        .bridge-info:hover {
+            transform: var(--card-transform-hover);
+            border-color: var(--accent);
+            box-shadow: var(--glow);
+        }
+
+        .bridge-info h3 {
+            color: var(--text);
+            margin-bottom: 1rem;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .bridge-info p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+            font-size: 1.1rem;
         }
 
         .bridge-addresses {
             display: flex;
             flex-wrap: wrap;
             gap: 2rem;
-            margin-top: 1rem;
+            margin-top: 2rem;
         }
 
         .bridge-address-item {
             flex: 1;
-            min-width: 200px;
+            min-width: 250px;
         }
 
         .bridge-address-item h4 {
             color: var(--text);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
             font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
         .bridge-address-item code {
             background-color: var(--primary);
-            padding: 0.5rem;
-            border-radius: 6px;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-sm);
             color: var(--accent);
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             word-break: break-all;
             display: inline-block;
             border: 1px solid var(--border);
+            font-family: 'Courier New', monospace;
+            box-shadow: var(--shadow);
+        }
+
+        /* How to Buy Steps */
+        .buy-steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            padding: 2.5rem 2rem;
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            transform: var(--card-transform);
+            transition: all 0.3s;
+        }
+
+        .step:hover {
+            transform: var(--card-transform-hover);
+            border-color: var(--accent);
+            box-shadow: var(--glow);
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            line-height: 60px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            color: white;
+            box-shadow: var(--glow);
+        }
+
+        .step h3 {
+            margin-bottom: 1rem;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .step p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
         }
 
         /* Airdrop Section */
@@ -543,54 +766,86 @@
 
         .airdrop-box {
             background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 3rem;
-            max-width: 600px;
+            border-radius: var(--radius);
+            padding: 4rem 3rem;
+            max-width: 800px;
             margin: 0 auto;
             border: 1px solid var(--border);
             box-shadow: var(--shadow);
+            transform: var(--card-transform);
+            transition: all 0.3s;
+        }
+
+        .airdrop-box:hover {
+            transform: var(--card-transform-hover);
+            border-color: var(--accent);
+            box-shadow: var(--glow);
+        }
+
+        .airdrop-box i {
+            font-size: 4rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 0 15px var(--accent-glow));
+        }
+
+        .airdrop-box h3 {
+            margin-bottom: 1rem;
+            color: var(--text);
+            font-size: 2.25rem;
+            font-weight: 700;
+        }
+
+        .airdrop-box p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            font-size: 1.1rem;
         }
 
         .airdrop-features {
             display: flex;
             justify-content: center;
-            gap: 2rem;
-            margin: 2rem 0;
+            gap: 3rem;
+            margin: 2.5rem 0;
             flex-wrap: wrap;
         }
 
         .airdrop-feature {
             text-align: center;
+            flex: 1;
+            min-width: 150px;
         }
 
         .airdrop-feature i {
             font-size: 2rem;
             color: var(--accent);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
         }
 
         .airdrop-feature span {
             display: block;
             color: var(--text-secondary);
-            font-size: 0.9rem;
+            font-size: 1rem;
+            font-weight: 500;
         }
 
         .airdrop-note {
-            margin-top: 1.5rem;
-            padding: 1rem;
+            margin-top: 2rem;
+            padding: 1.25rem;
             background-color: rgba(245, 158, 11, 0.1);
-            border-radius: 8px;
+            border-radius: var(--radius-sm);
             color: var(--warning);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             border: 1px solid rgba(245, 158, 11, 0.2);
         }
 
         /* Footer */
         footer {
             background-color: var(--secondary);
-            color: white;
-            padding: 3rem 0 1.5rem;
+            padding: 4rem 0 1.5rem;
             border-top: 1px solid var(--border);
+            margin-top: 2rem;
         }
 
         .footer-content {
@@ -598,7 +853,7 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
         }
 
         .social-links {
@@ -614,13 +869,16 @@
 
         .social-links a:hover {
             color: var(--accent);
-            transform: translateY(-3px);
+            transform: translateY(-5px) scale(1.1);
+            filter: drop-shadow(0 0 10px var(--accent-glow));
         }
 
         .contact a {
             color: var(--text-secondary);
             text-decoration: none;
             transition: color 0.2s;
+            font-size: 1rem;
+            font-weight: 500;
         }
 
         .contact a:hover {
@@ -634,6 +892,29 @@
             width: 100%;
             color: var(--text-secondary);
             font-size: 0.875rem;
+        }
+
+        /* Visitor Counter */
+        .visitor-counter {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            width: 100%;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+
+        .visitor-counter i {
+            margin-right: 4px;
+            color: var(--accent);
+        }
+
+        .counter-number {
+            font-weight: 600;
+            color: var(--text);
+            margin-left: 4px;
         }
 
         /* Back to top button */
@@ -655,11 +936,13 @@
             border: none;
             font-size: 1.25rem;
             box-shadow: var(--glow);
+            transform: scale(1);
         }
 
         .back-to-top:hover {
             background-color: var(--accent-light);
-            transform: translateY(-3px);
+            transform: scale(1.1);
+            box-shadow: var(--glow-hover);
         }
 
         /* Scroll menu */
@@ -684,10 +967,13 @@
             border: none;
             font-size: 1.25rem;
             box-shadow: var(--glow);
+            transform: scale(1);
         }
 
         .menu-trigger:hover {
             background-color: var(--accent-light);
+            transform: scale(1.1);
+            box-shadow: var(--glow-hover);
         }
 
         .menu-items {
@@ -695,9 +981,9 @@
             bottom: 60px;
             right: 0;
             background-color: var(--card-bg);
-            border-radius: 8px;
+            border-radius: var(--radius-sm);
             padding: 0.5rem 0;
-            min-width: 180px;
+            min-width: 200px;
             display: none;
             flex-direction: column;
             border: 1px solid var(--border);
@@ -709,30 +995,24 @@
             color: var(--text);
             text-decoration: none;
             transition: all 0.2s;
+            font-size: 0.95rem;
+            font-weight: 500;
         }
 
         .menu-items a:hover {
-            background-color: rgba(59, 130, 246, 0.1);
+            background-color: rgba(37, 99, 235, 0.1);
             color: var(--accent);
+            padding-left: 2rem;
         }
 
         .scroll-menu.open .menu-items {
             display: flex;
         }
 
-        /* Language Content */
-        .lang-content {
-            display: none;
-        }
-
-        .lang-content.active {
-            display: block;
-        }
-
         /* Responsive */
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 2.75rem;
             }
 
             .hero p {
@@ -740,11 +1020,11 @@
             }
 
             .section-title {
-                font-size: 2rem;
+                font-size: 2.25rem;
             }
 
             .stats-bar {
-                gap: 2rem;
+                gap: 1.5rem;
             }
 
             .stat-value {
@@ -774,22 +1054,38 @@
             }
 
             .vesting-table {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
             }
 
             .vesting-table td, .vesting-table th {
-                padding: 0.75rem;
+                padding: 0.75rem 0.5rem;
+            }
+
+            .bridge-addresses {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .example-flow {
+                flex-direction: column;
+            }
+
+            .example-arrow {
+                transform: rotate(90deg);
             }
         }
     </style>
 </head>
 <body data-theme="dark">
+    <!-- 3D Background Effect -->
+    <div class="bg-3d"></div>
+
     <!-- Header -->
     <header>
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <img src="https://www.dwjcrypto.com/eth/DBTC.svg" alt="DBTC Logo">
+                    <img src="https://raw.githubusercontent.com/josat123/BRVBTC/main/assets/images/brvbtc-logo.png" alt="DBTC Logo">
                     <span class="logo-text">DBTC</span>
                 </div>
                 <div class="nav-actions">
@@ -810,72 +1106,101 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <!-- English Content -->
-            <div class="lang-content active" id="content-en">
-                <div class="hero-badge">🔥 The First Deflationary Bitcoin Ecosystem</div>
-                <h1>DeflationaryBTC (DBTC)</h1>
-                <p>Automatic 1% burn on every transaction. Owner renounced. Fully transparent. Target supply: 21M.</p>
-                <div class="contract-address">
-                    Contract: 0xe972BbB8bB357418131951CcEaec9d8A5993bea2
-                </div>
-                <a href="https://etherscan.io/address/0xe972BbB8bB357418131951CcEaec9d8A5993bea2#code" class="btn" target="_blank">
-                    <i class="fas fa-file-contract"></i> View Contract
-                </a>
-                <a href="#tokenomics" class="btn btn-outline">
-                    <i class="fas fa-chart-pie"></i> Tokenomics
-                </a>
+            <div class="hero-badge" data-translate="hero-badge">🔥 The First Deflationary Bitcoin Ecosystem</div>
+            <h1 data-translate="hero-title">DeflationaryBTC (DBTC)</h1>
+            <p data-translate="hero-desc">Automatic 1% burn on every transaction. Owner renounced. Fully transparent. Target supply: 21M.</p>
+            <div class="contract-address" data-translate="contract-address">
+                Contract: 0xe972BbB8bB357418131951CcEaec9d8A5993bea2
             </div>
-            
-            <!-- Italian Content -->
-            <div class="lang-content" id="content-it">
-                <div class="hero-badge">🔥 Il Primo Ecosistema Bitcoin Deflazionistico</div>
-                <h1>DeflationaryBTC (DBTC)</h1>
-                <p>Bruciatura automatica dell'1% su ogni transazione. Proprietà rinunciata. Completamente trasparente. Obiettivo: 21M.</p>
-                <div class="contract-address">
-                    Contratto: 0xe972BbB8bB357418131951CcEaec9d8A5993bea2
-                </div>
-                <a href="https://etherscan.io/address/0xe972BbB8bB357418131951CcEaec9d8A5993bea2#code" class="btn" target="_blank">
-                    <i class="fas fa-file-contract"></i> Vedi Contratto
-                </a>
-                <a href="#tokenomics" class="btn btn-outline">
-                    <i class="fas fa-chart-pie"></i> Tokenomics
-                </a>
-            </div>
-            
-            <!-- Spanish Content -->
-            <div class="lang-content" id="content-es">
-                <div class="hero-badge">🔥 El Primer Ecosistema Bitcoin Deflacionario</div>
-                <h1>DeflationaryBTC (DBTC)</h1>
-                <p>Quema automática del 1% en cada transacción. Propiedad renunciada. Completamente transparente. Objetivo: 21M.</p>
-                <div class="contract-address">
-                    Contrato: 0xe972BbB8bB357418131951CcEaec9d8A5993bea2
-                </div>
-                <a href="https://etherscan.io/address/0xe972BbB8bB357418131951CcEaec9d8A5993bea2#code" class="btn" target="_blank">
-                    <i class="fas fa-file-contract"></i> Ver Contrato
-                </a>
-                <a href="#tokenomics" class="btn btn-outline">
-                    <i class="fas fa-chart-pie"></i> Tokenomics
-                </a>
-            </div>
+            <a href="https://etherscan.io/address/0xe972BbB8bB357418131951CcEaec9d8A5993bea2#code" class="btn" target="_blank">
+                <i class="fas fa-file-contract"></i> <span data-translate="view-contract">View Contract</span>
+            </a>
+            <a href="#tokenomics" class="btn btn-outline">
+                <i class="fas fa-chart-pie"></i> <span data-translate="tokenomics-btn">Tokenomics</span>
+            </a>
 
             <!-- Stats Bar -->
             <div class="stats-bar">
                 <div class="stat-item">
                     <div class="stat-value">250M</div>
-                    <div class="stat-label">Initial Supply</div>
+                    <div class="stat-label" data-translate="stat-initial">Initial Supply</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-value">21M</div>
-                    <div class="stat-label">Target Supply</div>
+                    <div class="stat-label" data-translate="stat-target">Target Supply</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-value">1%</div>
-                    <div class="stat-label">Burn per TX</div>
+                    <div class="stat-label" data-translate="stat-burn">Burn per TX</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-value">0x000...000</div>
-                    <div class="stat-label">Owner</div>
+                    <div class="stat-label" data-translate="stat-owner">Owner</div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How DBTC Works Section -->
+    <section id="how-it-works" style="background-color: var(--secondary);">
+        <div class="container">
+            <h2 class="section-title" data-translate="how-title">How DBTC Works</h2>
+            <p class="section-subtitle" data-translate="how-subtitle">Understanding the deflationary mechanism that makes DBTC unique</p>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-fire"></i></div>
+                    <h3 data-translate="how-feature1-title">1% Automatic Burn</h3>
+                    <p data-translate="how-feature1-desc">Every DBTC transaction incurs a 1% tax that is automatically burned (sent to address(0)). This permanently removes tokens from circulation, creating deflationary pressure.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> <span data-translate="how-feature1-list1">No exceptions - applies to ALL transfers</span></li>
+                        <li><i class="fas fa-check"></i> <span data-translate="how-feature1-list2">Visible and verifiable on Etherscan</span></li>
+                        <li><i class="fas fa-check"></i> <span data-translate="how-feature1-list3">Continues until 21M target is reached</span></li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-lock"></i></div>
+                    <h3 data-translate="how-feature2-title">Owner Renounced</h3>
+                    <p data-translate="how-feature2-desc">The contract ownership has been permanently renounced to address(0). This means no one can ever:</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> <span data-translate="how-feature2-list1">Mint new tokens</span></li>
+                        <li><i class="fas fa-check"></i> <span data-translate="how-feature2-list2">Pause trading</span></li>
+                        <li><i class="fas fa-check"></i> <span data-translate="how-feature2-list3">Modify the burn mechanism</span></li>
+                        <li><i class="fas fa-check"></i> <span data-translate="how-feature2-list4">Blacklist wallets</span></li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3 data-translate="how-feature3-title">Bitcoin-Like Scarcity</h3>
+                    <p data-translate="how-feature3-desc">Starting from 250M, DBTC's supply will decrease through burning until it reaches Bitcoin's final supply of 21M tokens.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> <span data-translate="how-feature3-list1">Initial supply: 250,000,000 DBTC</span></li>
+                        <li><i class="fas fa-check"></i> <span data-translate="how-feature3-list2">Target supply: 21,000,000 DBTC</span></li>
+                        <li><i class="fas fa-check"></i> <span data-translate="how-feature3-list3">229M tokens to be burned over time</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Example Transaction -->
+            <div class="example-box">
+                <h3 data-translate="how-example-title">Example Transaction</h3>
+                <div class="example-flow">
+                    <div class="example-card">
+                        <p data-translate="how-example-send">You send:</p>
+                        <div class="example-amount">1,000 DBTC</div>
+                    </div>
+                    <div class="example-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                    <div class="example-card">
+                        <p data-translate="how-example-receive">Recipient receives:</p>
+                        <div class="example-amount">990 DBTC</div>
+                        <div class="example-burned" data-translate="how-example-burned">10 DBTC burned forever</div>
+                    </div>
+                </div>
+                <p style="text-align: center; margin-top: 2rem; color: var(--text-secondary);">
+                    <i class="fas fa-info-circle"></i> <span data-translate="how-example-note">This mechanism applies to EVERY transaction, including buys, sells, and transfers.</span>
+                </p>
             </div>
         </div>
     </section>
@@ -887,106 +1212,35 @@
             <p class="section-subtitle" data-translate="features-subtitle">Built-in deflationary mechanics designed for sustainable growth</p>
             
             <div class="features">
-                <!-- English Content -->
-                <div class="lang-content active">
-                    <div class="feature-card">
-                        <div class="feature-icon"><i class="fas fa-fire"></i></div>
-                        <h3>Automatic 1% Burn</h3>
-                        <p>Every DBTC transaction incurs a 1% tax that is automatically burned, permanently reducing supply until the final target of 21M tokens.</p>
-                        <ul class="feature-list">
-                            <li><i class="fas fa-check"></i> No exceptions, no whitelist</li>
-                            <li><i class="fas fa-check"></i> Visible on-chain</li>
-                            <li><i class="fas fa-check"></i> Irreversible mechanism</li>
-                        </ul>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon"><i class="fas fa-lock"></i></div>
-                        <h3>Owner Renounced</h3>
-                        <p>The contract owner has been set to address(0). No one can mint new tokens, pause trading, or modify the contract.</p>
-                        <ul class="feature-list">
-                            <li><i class="fas fa-check"></i> Truly decentralized</li>
-                            <li><i class="fas fa-check"></i> No admin keys</li>
-                            <li><i class="fas fa-check"></i> Immutable rules</li>
-                        </ul>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
-                        <h3>Deflationary Target</h3>
-                        <p>Starting from 250M, the supply will decrease through burning until reaching Bitcoin's final supply of 21M DBTC.</p>
-                        <ul class="feature-list">
-                            <li><i class="fas fa-check"></i> Scarcity increases over time</li>
-                            <li><i class="fas fa-check"></i> Bitcoin-like economics</li>
-                            <li><i class="fas fa-check"></i> Transparent burning</li>
-                        </ul>
-                    </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-fire"></i></div>
+                    <h3 data-translate="feature1-title">Automatic 1% Burn</h3>
+                    <p data-translate="feature1-desc">Every DBTC transaction incurs a 1% tax that is automatically burned, permanently reducing supply until the final target of 21M tokens.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> <span data-translate="feature1-list1">No exceptions, no whitelist</span></li>
+                        <li><i class="fas fa-check"></i> <span data-translate="feature1-list2">Visible on-chain</span></li>
+                        <li><i class="fas fa-check"></i> <span data-translate="feature1-list3">Irreversible mechanism</span></li>
+                    </ul>
                 </div>
-                
-                <!-- Italian Content -->
-                <div class="lang-content">
-                    <div class="feature-card">
-                        <div class="feature-icon"><i class="fas fa-fire"></i></div>
-                        <h3>Bruciatura Automatica 1%</h3>
-                        <p>Ogni transazione DBTC subisce una tassa dell'1% che viene automaticamente bruciata, riducendo permanentemente la fornitura fino all'obiettivo finale di 21M token.</p>
-                        <ul class="feature-list">
-                            <li><i class="fas fa-check"></i> Nessuna eccezione, nessuna whitelist</li>
-                            <li><i class="fas fa-check"></i> Visibile on-chain</li>
-                            <li><i class="fas fa-check"></i> Meccanismo irreversibile</li>
-                        </ul>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon"><i class="fas fa-lock"></i></div>
-                        <h3>Proprietà Rinunciata</h3>
-                        <p>Il proprietario del contratto è stato impostato a address(0). Nessuno può coniare nuovi token, mettere in pausa il trading o modificare il contratto.</p>
-                        <ul class="feature-list">
-                            <li><i class="fas fa-check"></i> Veramente decentralizzato</li>
-                            <li><i class="fas fa-check"></i> Nessuna chiave admin</li>
-                            <li><i class="fas fa-check"></i> Regole immutabili</li>
-                        </ul>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
-                        <h3>Obiettivo Deflazionistico</h3>
-                        <p>Partendo da 250M, la fornitura diminuirà attraverso la bruciatura fino a raggiungere la fornitura finale di Bitcoin: 21M DBTC.</p>
-                        <ul class="feature-list">
-                            <li><i class="fas fa-check"></i> Scarsità aumenta nel tempo</li>
-                            <li><i class="fas fa-check"></i> Economia simile a Bitcoin</li>
-                            <li><i class="fas fa-check"></i> Bruciatura trasparente</li>
-                        </ul>
-                    </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-lock"></i></div>
+                    <h3 data-translate="feature2-title">Owner Renounced</h3>
+                    <p data-translate="feature2-desc">The contract owner has been set to address(0). No one can mint new tokens, pause trading, or modify the contract.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> <span data-translate="feature2-list1">Truly decentralized</span></li>
+                        <li><i class="fas fa-check"></i> <span data-translate="feature2-list2">No admin keys</span></li>
+                        <li><i class="fas fa-check"></i> <span data-translate="feature2-list3">Immutable rules</span></li>
+                    </ul>
                 </div>
-                
-                <!-- Spanish Content -->
-                <div class="lang-content">
-                    <div class="feature-card">
-                        <div class="feature-icon"><i class="fas fa-fire"></i></div>
-                        <h3>Quema Automática 1%</h3>
-                        <p>Cada transacción DBTC incurre en un impuesto del 1% que se quema automáticamente, reduciendo permanentemente el suministro hasta el objetivo final de 21M tokens.</p>
-                        <ul class="feature-list">
-                            <li><i class="fas fa-check"></i> Sin excepciones, sin whitelist</li>
-                            <li><i class="fas fa-check"></i> Visible en cadena</li>
-                            <li><i class="fas fa-check"></i> Mecanismo irreversible</li>
-                        </ul>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon"><i class="fas fa-lock"></i></div>
-                        <h3>Propiedad Renunciada</h3>
-                        <p>El propietario del contrato se ha establecido en address(0). Nadie puede acuñar nuevos tokens, pausar el trading o modificar el contrato.</p>
-                        <ul class="feature-list">
-                            <li><i class="fas fa-check"></i> Verdaderamente descentralizado</li>
-                            <li><i class="fas fa-check"></i> Sin claves admin</li>
-                            <li><i class="fas fa-check"></i> Reglas inmutables</li>
-                        </ul>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
-                        <h3>Objetivo Deflacionario</h3>
-                        <p>Comenzando desde 250M, el suministro disminuirá mediante la quema hasta alcanzar el suministro final de Bitcoin: 21M DBTC.</p>
-                        <ul class="feature-list">
-                            <li><i class="fas fa-check"></i> Escasez aumenta con el tiempo</li>
-                            <li><i class="fas fa-check"></i> Economía similar a Bitcoin</li>
-                            <li><i class="fas fa-check"></i> Quema transparente</li>
-                        </ul>
-                    </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3 data-translate="feature3-title">Deflationary Target</h3>
+                    <p data-translate="feature3-desc">Starting from 250M, the supply will decrease through burning until reaching Bitcoin's final supply of 21M DBTC.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> <span data-translate="feature3-list1">Scarcity increases over time</span></li>
+                        <li><i class="fas fa-check"></i> <span data-translate="feature3-list2">Bitcoin-like economics</span></li>
+                        <li><i class="fas fa-check"></i> <span data-translate="feature3-list3">Transparent burning</span></li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -1001,99 +1255,99 @@
             <div class="tokenomics-grid">
                 <div class="tokenomic-item">
                     <div class="tokenomic-value">250M</div>
-                    <div class="tokenomic-label">Initial Supply</div>
+                    <div class="tokenomic-label" data-translate="token-initial">Initial Supply</div>
                 </div>
                 <div class="tokenomic-item">
                     <div class="tokenomic-value">21M</div>
-                    <div class="tokenomic-label">Final Supply</div>
+                    <div class="tokenomic-label" data-translate="token-final">Final Supply</div>
                 </div>
                 <div class="tokenomic-item">
                     <div class="tokenomic-value">1%</div>
-                    <div class="tokenomic-label">Burn per TX</div>
+                    <div class="tokenomic-label" data-translate="token-burn">Burn per TX</div>
                 </div>
                 <div class="tokenomic-item">
                     <div class="tokenomic-value">0</div>
-                    <div class="tokenomic-label">Owner</div>
+                    <div class="tokenomic-label" data-translate="token-owner">Owner</div>
                 </div>
             </div>
 
             <!-- Vesting Table -->
-            <h3 style="margin: 3rem 0 1.5rem; text-align: center; color: var(--text);">Initial Distribution (All Tokens in Distributor)</h3>
+            <h3 style="margin: 3rem 0 1.5rem; text-align: center; color: var(--text);" data-translate="distribution-title">Initial Distribution (All Tokens in Distributor)</h3>
             <table class="vesting-table">
                 <thead>
                     <tr>
-                        <th>Allocation</th>
-                        <th>%</th>
-                        <th>Tokens</th>
-                        <th>Vesting</th>
+                        <th data-translate="table-allocation">Allocation</th>
+                        <th data-translate="table-percent">%</th>
+                        <th data-translate="table-tokens">Tokens</th>
+                        <th data-translate="table-vesting">Vesting</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Team & Founder</td>
+                        <td data-translate="row-team">Team & Founder</td>
                         <td>30%</td>
                         <td>75,000,000</td>
-                        <td>12 months cliff + 24 months linear</td>
+                        <td data-translate="row-team-vesting">12 months cliff + 24 months linear</td>
                     </tr>
                     <tr>
-                        <td>Community & Staking</td>
+                        <td data-translate="row-community">Community & Staking</td>
                         <td>25%</td>
                         <td>62,500,000</td>
-                        <td>48 months linear</td>
+                        <td data-translate="row-community-vesting">48 months linear</td>
                     </tr>
                     <tr>
-                        <td>Initial Liquidity</td>
+                        <td data-translate="row-liquidity">Initial Liquidity</td>
                         <td>20%</td>
                         <td>50,000,000</td>
-                        <td>LP locked 12 months</td>
+                        <td data-translate="row-liquidity-vesting">LP locked 12 months</td>
                     </tr>
                     <tr>
-                        <td>Marketing & Partnership</td>
+                        <td data-translate="row-marketing">Marketing & Partnership</td>
                         <td>10%</td>
                         <td>25,000,000</td>
-                        <td>6 months cliff + 12 months linear</td>
+                        <td data-translate="row-marketing-vesting">6 months cliff + 12 months linear</td>
                     </tr>
                     <tr>
-                        <td>Ecosystem Fund</td>
+                        <td data-translate="row-ecosystem">Ecosystem Fund</td>
                         <td>10%</td>
                         <td>25,000,000</td>
-                        <td>24 months cliff + 48 months linear</td>
+                        <td data-translate="row-ecosystem-vesting">24 months cliff + 48 months linear</td>
                     </tr>
                     <tr>
-                        <td>Airdrop</td>
+                        <td data-translate="row-airdrop">Airdrop</td>
                         <td>5%</td>
                         <td>12,500,000</td>
-                        <td>3 months linear</td>
+                        <td data-translate="row-airdrop-vesting">3 months linear</td>
                     </tr>
-                    <tr style="background-color: rgba(59, 130, 246, 0.1);">
-                        <td><strong>TOTAL</strong></td>
+                    <tr style="background-color: rgba(37, 99, 235, 0.1);">
+                        <td><strong data-translate="row-total">TOTAL</strong></td>
                         <td><strong>100%</strong></td>
                         <td><strong>250,000,000</strong></td>
-                        <td><strong>All tokens locked in distributor</strong></td>
+                        <td><strong data-translate="row-total-vesting">All tokens locked in distributor</strong></td>
                     </tr>
                 </tbody>
             </table>
 
             <!-- Bridge Info -->
             <div class="bridge-info">
-                <h3 style="margin-bottom: 1rem; color: var(--text);">🌉 Cross-Chain Bridge</h3>
-                <p style="color: var(--text-secondary); margin-bottom: 1rem;">DBTC can be bridged between Ethereum L1 and Polygon L2 using the Universal Bridge.</p>
+                <h3>🌉 <span data-translate="bridge-title">Cross-Chain Bridge</span></h3>
+                <p data-translate="bridge-desc">DBTC can be bridged between Ethereum L1 and Polygon L2 using the Universal Bridge. The same token exists natively on both chains - no wrapped versions!</p>
                 <div class="bridge-addresses">
                     <div class="bridge-address-item">
-                        <h4>Bridge L1 (Ethereum)</h4>
+                        <h4 data-translate="bridge-l1">Bridge L1 (Ethereum)</h4>
                         <code>0xe8681d55585FcDA6a4a39c9a59f39b63fbBa88e8</code>
                     </div>
                     <div class="bridge-address-item">
-                        <h4>Bridge L2 (Polygon)</h4>
+                        <h4 data-translate="bridge-l2">Bridge L2 (Polygon)</h4>
                         <code>0x0Ef6a63a16fB21dD8398183a154596953Ce4E835</code>
                     </div>
                     <div class="bridge-address-item">
-                        <h4>Messenger</h4>
+                        <h4 data-translate="bridge-messenger">Messenger</h4>
                         <code>0x25ace71c97b33cC4724cf772e9b8B8F980f9d3B5</code>
                     </div>
                 </div>
                 <p style="color: var(--text-secondary); margin-top: 1rem; font-size: 0.9rem;">
-                    <i class="fas fa-info-circle"></i> Fee: 0.05% • ~5 min transfer time
+                    <i class="fas fa-info-circle"></i> <span data-translate="bridge-note">Fee: 0.05% • ~5 min transfer time • EIP-712 secured</span>
                 </p>
             </div>
         </div>
@@ -1130,10 +1384,10 @@
             
             <div style="text-align: center; margin-top: 3rem;">
                 <a href="https://quickswap.exchange/#/swap?outputCurrency=0xe972BbB8bB357418131951CcEaec9d8A5993bea2" class="btn" target="_blank">
-                    <i class="fas fa-exchange-alt"></i> Buy on QuickSwap
+                    <i class="fas fa-exchange-alt"></i> <span data-translate="buy-quickswap">Buy on QuickSwap</span>
                 </a>
                 <a href="https://app.uniswap.org/#/swap?outputCurrency=0xe972BbB8bB357418131951CcEaec9d8A5993bea2&chain=polygon" class="btn btn-outline" target="_blank">
-                    <i class="fas fa-exchange-alt"></i> Buy on Uniswap
+                    <i class="fas fa-exchange-alt"></i> <span data-translate="buy-uniswap">Buy on Uniswap</span>
                 </a>
             </div>
         </div>
@@ -1146,11 +1400,9 @@
             
             <div class="airdrop-section">
                 <div class="airdrop-box">
-                    <i class="fas fa-gift" style="font-size: 3rem; color: var(--accent); margin-bottom: 1rem;"></i>
-                    <h3 style="margin-bottom: 1rem; color: var(--text);" data-translate="airdrop-heading">Airdrop Program</h3>
-                    <p style="color: var(--text-secondary); margin-bottom: 2rem;" data-translate="airdrop-desc">
-                        A total of 12.5M DBTC (5% of initial supply) is allocated for community airdrop with 3 months linear vesting.
-                    </p>
+                    <i class="fas fa-gift"></i>
+                    <h3 data-translate="airdrop-heading">Airdrop Program</h3>
+                    <p data-translate="airdrop-desc">A total of 12.5M DBTC (5% of initial supply) is allocated for community airdrop with 3 months linear vesting.</p>
                     
                     <div class="airdrop-features">
                         <div class="airdrop-feature">
@@ -1169,16 +1421,12 @@
 
                     <div class="airdrop-note">
                         <i class="fas fa-exclamation-triangle"></i>
-                        <span data-translate="airdrop-note">
-                            Airdrop is managed by the distributor contract. Wallets with POL balance and transaction history are prioritized.
-                        </span>
+                        <span data-translate="airdrop-note">Airdrop is managed by the distributor contract. Wallets with POL balance and transaction history are prioritized.</span>
                     </div>
 
                     <p style="margin-top: 2rem; color: var(--text-secondary); font-size: 0.9rem;">
                         <i class="fas fa-info-circle"></i>
-                        <span data-translate="airdrop-info">
-                            Check your eligibility and claim through the official distributor interface.
-                        </span>
+                        <span data-translate="airdrop-info">Check your eligibility and claim through the official distributor interface.</span>
                     </p>
                 </div>
             </div>
@@ -1190,17 +1438,20 @@
         <div class="container">
             <div class="footer-content">
                 <div class="social-links">
+                    <a href="https://github.com/josat123/DBTC-core" target="_blank" title="GitHub DBTC-core">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://github.com/josat123/BRVBTC" target="_blank" title="GitHub BRVBTC">
+                        <i class="fas fa-code-branch"></i>
+                    </a>
+                    <a href="https://github.com/josat123/universal-bridge" target="_blank" title="GitHub Universal Bridge">
+                        <i class="fas fa-link"></i>
+                    </a>
                     <a href="https://t.me/dwj_token" target="_blank" title="Telegram">
                         <i class="fab fa-telegram"></i>
                     </a>
                     <a href="https://x.com/DWJ_Token" target="_blank" title="Twitter">
                         <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="https://github.com/josat123" target="_blank" title="GitHub">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="https://github.com/josat123/DBTC" target="_blank" title="GitHub Project">
-                        <i class="fas fa-code-branch"></i>
                     </a>
                 </div>
                 
@@ -1210,7 +1461,14 @@
             </div>
             
             <div class="copyright">
-                <p>DeflationaryBTC © 2026 All rights reserved | 1% Tax on ALL transactions - Permanently Burned</p>
+                <p data-translate="footer-copyright">DeflationaryBTC © 2026 All rights reserved | 1% Tax on ALL transactions - Permanently Burned</p>
+            </div>
+
+            <!-- Visitor Counter -->
+            <div class="visitor-counter">
+                <i class="fas fa-eye"></i>
+                <span data-translate="visitor-text">Visitors:</span>
+                <span class="counter-number" id="visitorCounter">1,234</span>
             </div>
         </div>
     </footer>
@@ -1226,15 +1484,412 @@
             <i class="fas fa-bars"></i>
         </button>
         <div class="menu-items">
+            <a href="#how-it-works" data-translate="menu-how">How It Works</a>
             <a href="#features" data-translate="menu-features">Features</a>
             <a href="#tokenomics" data-translate="menu-tokenomics">Tokenomics</a>
             <a href="#how-to-buy" data-translate="menu-buy">How to Buy</a>
             <a href="#airdrop" data-translate="menu-airdrop">Airdrop</a>
-            <a href="https://github.com/josat123/DBTC" target="_blank">GitHub</a>
+            <a href="https://github.com/josat123/DBTC-core" target="_blank">DBTC-core</a>
+            <a href="https://github.com/josat123/BRVBTC" target="_blank">BRVBTC</a>
+            <a href="https://github.com/josat123/universal-bridge" target="_blank">Bridge</a>
         </div>
     </div>
 
     <script>
+        // Translations object - complete for all languages
+        const translations = {
+            en: {
+                // Header
+                'theme': 'Theme',
+                
+                // Hero
+                'hero-badge': '🔥 The First Deflationary Bitcoin Ecosystem',
+                'hero-title': 'DeflationaryBTC (DBTC)',
+                'hero-desc': 'Automatic 1% burn on every transaction. Owner renounced. Fully transparent. Target supply: 21M.',
+                'contract-address': 'Contract: 0xe972BbB8bB357418131951CcEaec9d8A5993bea2',
+                'view-contract': 'View Contract',
+                'tokenomics-btn': 'Tokenomics',
+                
+                // Stats
+                'stat-initial': 'Initial Supply',
+                'stat-target': 'Target Supply',
+                'stat-burn': 'Burn per TX',
+                'stat-owner': 'Owner',
+                
+                // How It Works Section
+                'how-title': 'How DBTC Works',
+                'how-subtitle': 'Understanding the deflationary mechanism that makes DBTC unique',
+                'how-feature1-title': '1% Automatic Burn',
+                'how-feature1-desc': 'Every DBTC transaction incurs a 1% tax that is automatically burned (sent to address(0)). This permanently removes tokens from circulation, creating deflationary pressure.',
+                'how-feature1-list1': 'No exceptions - applies to ALL transfers',
+                'how-feature1-list2': 'Visible and verifiable on Etherscan',
+                'how-feature1-list3': 'Continues until 21M target is reached',
+                'how-feature2-title': 'Owner Renounced',
+                'how-feature2-desc': 'The contract ownership has been permanently renounced to address(0). This means no one can ever:',
+                'how-feature2-list1': 'Mint new tokens',
+                'how-feature2-list2': 'Pause trading',
+                'how-feature2-list3': 'Modify the burn mechanism',
+                'how-feature2-list4': 'Blacklist wallets',
+                'how-feature3-title': 'Bitcoin-Like Scarcity',
+                'how-feature3-desc': 'Starting from 250M, DBTC\'s supply will decrease through burning until it reaches Bitcoin\'s final supply of 21M tokens.',
+                'how-feature3-list1': 'Initial supply: 250,000,000 DBTC',
+                'how-feature3-list2': 'Target supply: 21,000,000 DBTC',
+                'how-feature3-list3': '229M tokens to be burned over time',
+                'how-example-title': 'Example Transaction',
+                'how-example-send': 'You send:',
+                'how-example-receive': 'Recipient receives:',
+                'how-example-burned': '10 DBTC burned forever',
+                'how-example-note': 'This mechanism applies to EVERY transaction, including buys, sells, and transfers.',
+                
+                // Features Section
+                'features-title': 'Why DBTC?',
+                'features-subtitle': 'Built-in deflationary mechanics designed for sustainable growth',
+                'feature1-title': 'Automatic 1% Burn',
+                'feature1-desc': 'Every DBTC transaction incurs a 1% tax that is automatically burned, permanently reducing supply until the final target of 21M tokens.',
+                'feature1-list1': 'No exceptions, no whitelist',
+                'feature1-list2': 'Visible on-chain',
+                'feature1-list3': 'Irreversible mechanism',
+                'feature2-title': 'Owner Renounced',
+                'feature2-desc': 'The contract owner has been set to address(0). No one can mint new tokens, pause trading, or modify the contract.',
+                'feature2-list1': 'Truly decentralized',
+                'feature2-list2': 'No admin keys',
+                'feature2-list3': 'Immutable rules',
+                'feature3-title': 'Deflationary Target',
+                'feature3-desc': 'Starting from 250M, the supply will decrease through burning until reaching Bitcoin\'s final supply of 21M DBTC.',
+                'feature3-list1': 'Scarcity increases over time',
+                'feature3-list2': 'Bitcoin-like economics',
+                'feature3-list3': 'Transparent burning',
+                
+                // Tokenomics Section
+                'tokenomics-title': 'Tokenomics',
+                'tokenomics-subtitle': 'Fully transparent distribution based on actual contract data',
+                'token-initial': 'Initial Supply',
+                'token-final': 'Final Supply',
+                'token-burn': 'Burn per TX',
+                'token-owner': 'Owner',
+                'distribution-title': 'Initial Distribution (All Tokens in Distributor)',
+                'table-allocation': 'Allocation',
+                'table-percent': '%',
+                'table-tokens': 'Tokens',
+                'table-vesting': 'Vesting',
+                'row-team': 'Team & Founder',
+                'row-team-vesting': '12 months cliff + 24 months linear',
+                'row-community': 'Community & Staking',
+                'row-community-vesting': '48 months linear',
+                'row-liquidity': 'Initial Liquidity',
+                'row-liquidity-vesting': 'LP locked 12 months',
+                'row-marketing': 'Marketing & Partnership',
+                'row-marketing-vesting': '6 months cliff + 12 months linear',
+                'row-ecosystem': 'Ecosystem Fund',
+                'row-ecosystem-vesting': '24 months cliff + 48 months linear',
+                'row-airdrop': 'Airdrop',
+                'row-airdrop-vesting': '3 months linear',
+                'row-total': 'TOTAL',
+                'row-total-vesting': 'All tokens locked in distributor',
+                'bridge-title': 'Cross-Chain Bridge',
+                'bridge-desc': 'DBTC can be bridged between Ethereum L1 and Polygon L2 using the Universal Bridge. The same token exists natively on both chains - no wrapped versions!',
+                'bridge-l1': 'Bridge L1 (Ethereum)',
+                'bridge-l2': 'Bridge L2 (Polygon)',
+                'bridge-messenger': 'Messenger',
+                'bridge-note': 'Fee: 0.05% • ~5 min transfer time • EIP-712 secured',
+                
+                // How to Buy Section
+                'buy-title': 'How to Buy DBTC',
+                'buy-subtitle': 'No presale. Only available on decentralized exchanges.',
+                'step1-title': 'Get POL/MATIC',
+                'step1-desc': 'Buy POL (ex-MATIC) on a centralized exchange and send to your wallet.',
+                'step2-title': 'Switch to Polygon',
+                'step2-desc': 'Add Polygon network to MetaMask and bridge your funds if needed.',
+                'step3-title': 'Go to QuickSwap',
+                'step3-desc': 'Visit QuickSwap, connect wallet, and swap POL for DBTC.',
+                'step4-title': 'HODL or LP',
+                'step4-desc': 'Hold DBTC or provide liquidity to earn fees.',
+                'buy-quickswap': 'Buy on QuickSwap',
+                'buy-uniswap': 'Buy on Uniswap',
+                
+                // Airdrop Section
+                'airdrop-title': 'DBTC Airdrop',
+                'airdrop-heading': 'Airdrop Program',
+                'airdrop-desc': 'A total of 12.5M DBTC (5% of initial supply) is allocated for community airdrop with 3 months linear vesting.',
+                'airdrop-vesting': '3 months linear',
+                'airdrop-eligible': 'Eligible wallets',
+                'airdrop-amount': '12.5M total',
+                'airdrop-note': 'Airdrop is managed by the distributor contract. Wallets with POL balance and transaction history are prioritized.',
+                'airdrop-info': 'Check your eligibility and claim through the official distributor interface.',
+                
+                // Footer
+                'footer-copyright': 'DeflationaryBTC © 2026 All rights reserved | 1% Tax on ALL transactions - Permanently Burned',
+                'visitor-text': 'Visitors:',
+                
+                // Menu
+                'menu-how': 'How It Works',
+                'menu-features': 'Features',
+                'menu-tokenomics': 'Tokenomics',
+                'menu-buy': 'How to Buy',
+                'menu-airdrop': 'Airdrop'
+            },
+            it: {
+                // Header
+                'theme': 'Tema',
+                
+                // Hero
+                'hero-badge': '🔥 Il Primo Ecosistema Bitcoin Deflazionistico',
+                'hero-title': 'DeflationaryBTC (DBTC)',
+                'hero-desc': 'Bruciatura automatica dell\'1% su ogni transazione. Proprietà rinunciata. Completamente trasparente. Obiettivo: 21M.',
+                'contract-address': 'Contratto: 0xe972BbB8bB357418131951CcEaec9d8A5993bea2',
+                'view-contract': 'Vedi Contratto',
+                'tokenomics-btn': 'Tokenomics',
+                
+                // Stats
+                'stat-initial': 'Fornitura Iniziale',
+                'stat-target': 'Fornitura Finale',
+                'stat-burn': 'Bruciatura per TX',
+                'stat-owner': 'Proprietario',
+                
+                // How It Works Section
+                'how-title': 'Come Funziona DBTC',
+                'how-subtitle': 'Comprendi il meccanismo deflazionistico che rende DBTC unico',
+                'how-feature1-title': 'Bruciatura Automatica 1%',
+                'how-feature1-desc': 'Ogni transazione DBTC subisce una tassa dell\'1% che viene automaticamente bruciata (inviata a address(0)). Questo rimuove permanentemente token dalla circolazione, creando pressione deflazionistica.',
+                'how-feature1-list1': 'Nessuna eccezione - applicata a TUTTI i trasferimenti',
+                'how-feature1-list2': 'Visibile e verificabile su Etherscan',
+                'how-feature1-list3': 'Continua fino al raggiungimento di 21M',
+                'how-feature2-title': 'Proprietà Rinunciata',
+                'how-feature2-desc': 'La proprietà del contratto è stata permanentemente rinunciata a address(0). Questo significa che nessuno potrà mai:',
+                'how-feature2-list1': 'Coniare nuovi token',
+                'how-feature2-list2': 'Mettere in pausa il trading',
+                'how-feature2-list3': 'Modificare il meccanismo di bruciatura',
+                'how-feature2-list4': 'Blacklistare wallet',
+                'how-feature3-title': 'Scarsità Simile a Bitcoin',
+                'how-feature3-desc': 'Partendo da 250M, la fornitura di DBTC diminuirà attraverso la bruciatura fino a raggiungere la fornitura finale di Bitcoin di 21M token.',
+                'how-feature3-list1': 'Fornitura iniziale: 250.000.000 DBTC',
+                'how-feature3-list2': 'Fornitura finale: 21.000.000 DBTC',
+                'how-feature3-list3': '229M token da bruciare nel tempo',
+                'how-example-title': 'Esempio di Transazione',
+                'how-example-send': 'Tu invii:',
+                'how-example-receive': 'Il destinatario riceve:',
+                'how-example-burned': '10 DBTC bruciati per sempre',
+                'how-example-note': 'Questo meccanismo si applica ad OGNI transazione, inclusi acquisti, vendite e trasferimenti.',
+                
+                // Features Section
+                'features-title': 'Perché DBTC?',
+                'features-subtitle': 'Meccanismi deflazionistici integrati per una crescita sostenibile',
+                'feature1-title': 'Bruciatura Automatica 1%',
+                'feature1-desc': 'Ogni transazione DBTC subisce una tassa dell\'1% che viene automaticamente bruciata, riducendo permanentemente la fornitura fino all\'obiettivo finale di 21M token.',
+                'feature1-list1': 'Nessuna eccezione, nessuna whitelist',
+                'feature1-list2': 'Visibile on-chain',
+                'feature1-list3': 'Meccanismo irreversibile',
+                'feature2-title': 'Proprietà Rinunciata',
+                'feature2-desc': 'Il proprietario del contratto è stato impostato a address(0). Nessuno può coniare nuovi token, mettere in pausa il trading o modificare il contratto.',
+                'feature2-list1': 'Veramente decentralizzato',
+                'feature2-list2': 'Nessuna chiave admin',
+                'feature2-list3': 'Regole immutabili',
+                'feature3-title': 'Obiettivo Deflazionistico',
+                'feature3-desc': 'Partendo da 250M, la fornitura diminuirà attraverso la bruciatura fino a raggiungere la fornitura finale di Bitcoin: 21M DBTC.',
+                'feature3-list1': 'Scarsità aumenta nel tempo',
+                'feature3-list2': 'Economia simile a Bitcoin',
+                'feature3-list3': 'Bruciatura trasparente',
+                
+                // Tokenomics Section
+                'tokenomics-title': 'Tokenomics',
+                'tokenomics-subtitle': 'Distribuzione completamente trasparente basata sui dati del contratto',
+                'token-initial': 'Fornitura Iniziale',
+                'token-final': 'Fornitura Finale',
+                'token-burn': 'Bruciatura per TX',
+                'token-owner': 'Proprietario',
+                'distribution-title': 'Distribuzione Iniziale (Tutti i token nel distributore)',
+                'table-allocation': 'Allocazione',
+                'table-percent': '%',
+                'table-tokens': 'Token',
+                'table-vesting': 'Vesting',
+                'row-team': 'Team & Fondatore',
+                'row-team-vesting': '12 mesi cliff + 24 mesi lineari',
+                'row-community': 'Community & Staking',
+                'row-community-vesting': '48 mesi lineari',
+                'row-liquidity': 'Liquidità Iniziale',
+                'row-liquidity-vesting': 'LP bloccati 12 mesi',
+                'row-marketing': 'Marketing & Partnership',
+                'row-marketing-vesting': '6 mesi cliff + 12 mesi lineari',
+                'row-ecosystem': 'Fondo Ecosistema',
+                'row-ecosystem-vesting': '24 mesi cliff + 48 mesi lineari',
+                'row-airdrop': 'Airdrop',
+                'row-airdrop-vesting': '3 mesi lineari',
+                'row-total': 'TOTALE',
+                'row-total-vesting': 'Tutti i token bloccati nel distributore',
+                'bridge-title': 'Bridge Cross-Chain',
+                'bridge-desc': 'DBTC può essere trasferito tra Ethereum L1 e Polygon L2 usando il Universal Bridge. Lo stesso token esiste nativamente su entrambe le chain - niente versioni wrapped!',
+                'bridge-l1': 'Bridge L1 (Ethereum)',
+                'bridge-l2': 'Bridge L2 (Polygon)',
+                'bridge-messenger': 'Messenger',
+                'bridge-note': 'Commissione: 0.05% • ~5 min di trasferimento • Protetto EIP-712',
+                
+                // How to Buy Section
+                'buy-title': 'Come Comprare DBTC',
+                'buy-subtitle': 'Nessuna presale. Disponibile solo su exchange decentralizzati.',
+                'step1-title': 'Ottieni POL/MATIC',
+                'step1-desc': 'Compra POL (ex-MATIC) su un exchange centralizzato e invia al tuo wallet.',
+                'step2-title': 'Passa a Polygon',
+                'step2-desc': 'Aggiungi la rete Polygon a MetaMask e fai il bridge se necessario.',
+                'step3-title': 'Vai su QuickSwap',
+                'step3-desc': 'Visita QuickSwap, connetti il wallet e scambia POL per DBTC.',
+                'step4-title': 'HODL o LP',
+                'step4-desc': 'Tieni DBTC o fornisci liquidità per guadagnare commissioni.',
+                'buy-quickswap': 'Compra su QuickSwap',
+                'buy-uniswap': 'Compra su Uniswap',
+                
+                // Airdrop Section
+                'airdrop-title': 'Airdrop DBTC',
+                'airdrop-heading': 'Programma Airdrop',
+                'airdrop-desc': 'Un totale di 12.5M DBTC (5% della fornitura iniziale) è allocato per l\'airdrop della community con vesting lineare di 3 mesi.',
+                'airdrop-vesting': '3 mesi lineari',
+                'airdrop-eligible': 'Wallet idonei',
+                'airdrop-amount': '12.5M totali',
+                'airdrop-note': 'L\'airdrop è gestito dal contratto distributore. I wallet con saldo POL e cronologia transazioni sono prioritari.',
+                'airdrop-info': 'Verifica la tua idoneità e richiedi tramite l\'interfaccia ufficiale del distributore.',
+                
+                // Footer
+                'footer-copyright': 'DeflationaryBTC © 2026 Tutti i diritti riservati | Tassa dell\'1% su TUTTE le transazioni - Bruciata Permanentemente',
+                'visitor-text': 'Visitatori:',
+                
+                // Menu
+                'menu-how': 'Come Funziona',
+                'menu-features': 'Caratteristiche',
+                'menu-tokenomics': 'Tokenomics',
+                'menu-buy': 'Come Comprare',
+                'menu-airdrop': 'Airdrop'
+            },
+            es: {
+                // Header
+                'theme': 'Tema',
+                
+                // Hero
+                'hero-badge': '🔥 El Primer Ecosistema Bitcoin Deflacionario',
+                'hero-title': 'DeflationaryBTC (DBTC)',
+                'hero-desc': 'Quema automática del 1% en cada transacción. Propiedad renunciada. Completamente transparente. Objetivo: 21M.',
+                'contract-address': 'Contrato: 0xe972BbB8bB357418131951CcEaec9d8A5993bea2',
+                'view-contract': 'Ver Contrato',
+                'tokenomics-btn': 'Tokenomics',
+                
+                // Stats
+                'stat-initial': 'Suministro Inicial',
+                'stat-target': 'Suministro Final',
+                'stat-burn': 'Quema por TX',
+                'stat-owner': 'Propietario',
+                
+                // How It Works Section
+                'how-title': 'Cómo Funciona DBTC',
+                'how-subtitle': 'Comprende el mecanismo deflacionario que hace único a DBTC',
+                'how-feature1-title': 'Quema Automática 1%',
+                'how-feature1-desc': 'Cada transacción DBTC incurre en un impuesto del 1% que se quema automáticamente (enviado a address(0)). Esto elimina permanentemente tokens de la circulación, creando presión deflacionaria.',
+                'how-feature1-list1': 'Sin excepciones - aplica a TODAS las transferencias',
+                'how-feature1-list2': 'Visible y verificable en Etherscan',
+                'how-feature1-list3': 'Continúa hasta alcanzar 21M',
+                'how-feature2-title': 'Propiedad Renunciada',
+                'how-feature2-desc': 'La propiedad del contrato ha sido renunciada permanentemente a address(0). Esto significa que nadie podrá nunca:',
+                'how-feature2-list1': 'Acuñar nuevos tokens',
+                'how-feature2-list2': 'Pausar el trading',
+                'how-feature2-list3': 'Modificar el mecanismo de quema',
+                'how-feature2-list4': 'Blacklistar wallets',
+                'how-feature3-title': 'Escasez Similar a Bitcoin',
+                'how-feature3-desc': 'Comenzando desde 250M, el suministro de DBTC disminuirá mediante la quema hasta alcanzar el suministro final de Bitcoin de 21M tokens.',
+                'how-feature3-list1': 'Suministro inicial: 250.000.000 DBTC',
+                'how-feature3-list2': 'Suministro final: 21.000.000 DBTC',
+                'how-feature3-list3': '229M tokens a quemar con el tiempo',
+                'how-example-title': 'Ejemplo de Transacción',
+                'how-example-send': 'Tú envías:',
+                'how-example-receive': 'El destinatario recibe:',
+                'how-example-burned': '10 DBTC quemados para siempre',
+                'how-example-note': 'Este mecanismo aplica a CADA transacción, incluyendo compras, ventas y transferencias.',
+                
+                // Features Section
+                'features-title': '¿Por Qué DBTC?',
+                'features-subtitle': 'Mecánicas deflacionarias integradas para un crecimiento sostenible',
+                'feature1-title': 'Quema Automática 1%',
+                'feature1-desc': 'Cada transacción DBTC incurre en un impuesto del 1% que se quema automáticamente, reduciendo permanentemente el suministro hasta el objetivo final de 21M tokens.',
+                'feature1-list1': 'Sin excepciones, sin whitelist',
+                'feature1-list2': 'Visible en cadena',
+                'feature1-list3': 'Mecanismo irreversible',
+                'feature2-title': 'Propiedad Renunciada',
+                'feature2-desc': 'El propietario del contrato se ha establecido en address(0). Nadie puede acuñar nuevos tokens, pausar el trading o modificar el contrato.',
+                'feature2-list1': 'Verdaderamente descentralizado',
+                'feature2-list2': 'Sin claves admin',
+                'feature2-list3': 'Reglas inmutables',
+                'feature3-title': 'Objetivo Deflacionario',
+                'feature3-desc': 'Comenzando desde 250M, el suministro disminuirá mediante la quema hasta alcanzar el suministro final de Bitcoin: 21M DBTC.',
+                'feature3-list1': 'Escasez aumenta con el tiempo',
+                'feature3-list2': 'Economía similar a Bitcoin',
+                'feature3-list3': 'Quema transparente',
+                
+                // Tokenomics Section
+                'tokenomics-title': 'Tokenomics',
+                'tokenomics-subtitle': 'Distribución completamente transparente basada en datos reales del contrato',
+                'token-initial': 'Suministro Inicial',
+                'token-final': 'Suministro Final',
+                'token-burn': 'Quema por TX',
+                'token-owner': 'Propietario',
+                'distribution-title': 'Distribución Inicial (Todos los tokens en el distribuidor)',
+                'table-allocation': 'Asignación',
+                'table-percent': '%',
+                'table-tokens': 'Tokens',
+                'table-vesting': 'Vesting',
+                'row-team': 'Team & Fundador',
+                'row-team-vesting': '12 meses cliff + 24 meses lineales',
+                'row-community': 'Comunidad & Staking',
+                'row-community-vesting': '48 meses lineales',
+                'row-liquidity': 'Liquidez Inicial',
+                'row-liquidity-vesting': 'LP bloqueados 12 meses',
+                'row-marketing': 'Marketing & Partnerships',
+                'row-marketing-vesting': '6 meses cliff + 12 meses lineales',
+                'row-ecosystem': 'Fondo Ecosistema',
+                'row-ecosystem-vesting': '24 meses cliff + 48 meses lineales',
+                'row-airdrop': 'Airdrop',
+                'row-airdrop-vesting': '3 meses lineales',
+                'row-total': 'TOTAL',
+                'row-total-vesting': 'Todos los tokens bloqueados en el distribuidor',
+                'bridge-title': 'Puente Cross-Chain',
+                'bridge-desc': 'DBTC puede ser transferido entre Ethereum L1 y Polygon L2 usando el Universal Bridge. El mismo token existe nativamente en ambas chains - ¡sin versiones wrapped!',
+                'bridge-l1': 'Puente L1 (Ethereum)',
+                'bridge-l2': 'Puente L2 (Polygon)',
+                'bridge-messenger': 'Messenger',
+                'bridge-note': 'Comisión: 0.05% • ~5 min de transferencia • Protegido EIP-712',
+                
+                // How to Buy Section
+                'buy-title': 'Cómo Comprar DBTC',
+                'buy-subtitle': 'Sin preventa. Solo disponible en exchanges descentralizados.',
+                'step1-title': 'Obtén POL/MATIC',
+                'step1-desc': 'Compra POL (ex-MATIC) en un exchange centralizado y envía a tu wallet.',
+                'step2-title': 'Cambia a Polygon',
+                'step2-desc': 'Añade la red Polygon a MetaMask y haz bridge si es necesario.',
+                'step3-title': 'Ve a QuickSwap',
+                'step3-desc': 'Visita QuickSwap, conecta tu wallet y cambia POL por DBTC.',
+                'step4-title': 'HODL o LP',
+                'step4-desc': 'Mantén DBTC o provee liquidez para ganar comisiones.',
+                'buy-quickswap': 'Compra en QuickSwap',
+                'buy-uniswap': 'Compra en Uniswap',
+                
+                // Airdrop Section
+                'airdrop-title': 'Airdrop DBTC',
+                'airdrop-heading': 'Programa Airdrop',
+                'airdrop-desc': 'Un total de 12.5M DBTC (5% del suministro inicial) está asignado para airdrop comunitario con vesting lineal de 3 meses.',
+                'airdrop-vesting': '3 meses lineal',
+                'airdrop-eligible': 'Wallets elegibles',
+                'airdrop-amount': '12.5M total',
+                'airdrop-note': 'El airdrop es gestionado por el contrato distribuidor. Los wallets con saldo POL e historial de transacciones tienen prioridad.',
+                'airdrop-info': 'Verifica tu elegibilidad y reclama a través de la interfaz oficial del distribuidor.',
+                
+                // Footer
+                'footer-copyright': 'DeflationaryBTC © 2026 Todos los derechos reservados | Impuesto del 1% en TODAS las transacciones - Quemado Permanentemente',
+                'visitor-text': 'Visitantes:',
+                
+                // Menu
+                'menu-how': 'Cómo Funciona',
+                'menu-features': 'Características',
+                'menu-tokenomics': 'Tokenomics',
+                'menu-buy': 'Cómo Comprar',
+                'menu-airdrop': 'Airdrop'
+            }
+        };
+
         // Theme Toggle
         const themeToggle = document.getElementById('themeToggle');
         const body = document.body;
@@ -1252,131 +1907,60 @@
             }
         });
 
-        // Language translations
-        const translations = {
-            en: {
-                'theme': 'Theme',
-                'features-title': 'Why DBTC?',
-                'features-subtitle': 'Built-in deflationary mechanics designed for sustainable growth',
-                'tokenomics-title': 'Tokenomics',
-                'tokenomics-subtitle': 'Fully transparent distribution based on actual contract data',
-                'buy-title': 'How to Buy DBTC',
-                'buy-subtitle': 'No presale. Only available on decentralized exchanges.',
-                'step1-title': 'Get POL/MATIC',
-                'step1-desc': 'Buy POL (ex-MATIC) on a centralized exchange and send to your wallet.',
-                'step2-title': 'Switch to Polygon',
-                'step2-desc': 'Add Polygon network to MetaMask and bridge your funds if needed.',
-                'step3-title': 'Go to QuickSwap',
-                'step3-desc': 'Visit QuickSwap, connect wallet, and swap POL for DBTC.',
-                'step4-title': 'HODL or LP',
-                'step4-desc': 'Hold DBTC or provide liquidity to earn fees.',
-                'airdrop-title': 'DBTC Airdrop',
-                'airdrop-heading': 'Airdrop Program',
-                'airdrop-desc': 'A total of 12.5M DBTC (5% of initial supply) is allocated for community airdrop with 3 months linear vesting.',
-                'airdrop-vesting': '3 months linear',
-                'airdrop-eligible': 'Eligible wallets',
-                'airdrop-amount': '12.5M total',
-                'airdrop-note': 'Airdrop is managed by the distributor contract. Wallets with POL balance and transaction history are prioritized.',
-                'airdrop-info': 'Check your eligibility and claim through the official distributor interface.',
-                'menu-features': 'Features',
-                'menu-tokenomics': 'Tokenomics',
-                'menu-buy': 'How to Buy',
-                'menu-airdrop': 'Airdrop'
-            },
-            it: {
-                'theme': 'Tema',
-                'features-title': 'Perché DBTC?',
-                'features-subtitle': 'Meccanismi deflazionistici integrati per una crescita sostenibile',
-                'tokenomics-title': 'Tokenomics',
-                'tokenomics-subtitle': 'Distribuzione completamente trasparente basata sui dati del contratto',
-                'buy-title': 'Come Comprare DBTC',
-                'buy-subtitle': 'Nessuna presale. Disponibile solo su exchange decentralizzati.',
-                'step1-title': 'Ottieni POL/MATIC',
-                'step1-desc': 'Compra POL (ex-MATIC) su un exchange centralizzato e invia al tuo wallet.',
-                'step2-title': 'Passa a Polygon',
-                'step2-desc': 'Aggiungi la rete Polygon a MetaMask e fai il bridge se necessario.',
-                'step3-title': 'Vai su QuickSwap',
-                'step3-desc': 'Visita QuickSwap, connetti il wallet e scambia POL per DBTC.',
-                'step4-title': 'HODL o LP',
-                'step4-desc': 'Tieni DBTC o fornisci liquidità per guadagnare commissioni.',
-                'airdrop-title': 'Airdrop DBTC',
-                'airdrop-heading': 'Programma Airdrop',
-                'airdrop-desc': 'Un totale di 12.5M DBTC (5% della fornitura iniziale) è allocato per l\'airdrop della community con vesting lineare di 3 mesi.',
-                'airdrop-vesting': '3 mesi lineari',
-                'airdrop-eligible': 'Wallet idonei',
-                'airdrop-amount': '12.5M totali',
-                'airdrop-note': 'L\'airdrop è gestito dal contratto distributore. I wallet con saldo POL e cronologia transazioni sono prioritari.',
-                'airdrop-info': 'Verifica la tua idoneità e richiedi tramite l\'interfaccia ufficiale del distributore.',
-                'menu-features': 'Caratteristiche',
-                'menu-tokenomics': 'Tokenomics',
-                'menu-buy': 'Come Comprare',
-                'menu-airdrop': 'Airdrop'
-            },
-            es: {
-                'theme': 'Tema',
-                'features-title': '¿Por Qué DBTC?',
-                'features-subtitle': 'Mecánicas deflacionarias integradas para un crecimiento sostenible',
-                'tokenomics-title': 'Tokenomics',
-                'tokenomics-subtitle': 'Distribución completamente transparente basada en datos reales del contrato',
-                'buy-title': 'Cómo Comprar DBTC',
-                'buy-subtitle': 'Sin preventa. Solo disponible en exchanges descentralizados.',
-                'step1-title': 'Obtén POL/MATIC',
-                'step1-desc': 'Compra POL (ex-MATIC) en un exchange centralizado y envía a tu wallet.',
-                'step2-title': 'Cambia a Polygon',
-                'step2-desc': 'Añade la red Polygon a MetaMask y haz bridge si es necesario.',
-                'step3-title': 'Ve a QuickSwap',
-                'step3-desc': 'Visita QuickSwap, conecta tu wallet y cambia POL por DBTC.',
-                'step4-title': 'HODL o LP',
-                'step4-desc': 'Mantén DBTC o provee liquidez para ganar comisiones.',
-                'airdrop-title': 'Airdrop DBTC',
-                'airdrop-heading': 'Programa Airdrop',
-                'airdrop-desc': 'Un total de 12.5M DBTC (5% del suministro inicial) está asignado para airdrop comunitario con vesting lineal de 3 meses.',
-                'airdrop-vesting': '3 meses lineal',
-                'airdrop-eligible': 'Wallets elegibles',
-                'airdrop-amount': '12.5M total',
-                'airdrop-note': 'El airdrop es gestionado por el contrato distribuidor. Los wallets con saldo POL e historial de transacciones tienen prioridad.',
-                'airdrop-info': 'Verifica tu elegibilidad y reclama a través de la interfaz oficial del distribuidor.',
-                'menu-features': 'Características',
-                'menu-tokenomics': 'Tokenomics',
-                'menu-buy': 'Cómo Comprar',
-                'menu-airdrop': 'Airdrop'
-            }
-        };
-
-        // Language switcher
+        // Language switcher - FIXED VERSION
         const langButtons = document.querySelectorAll('.lang-btn');
-        const langContents = document.querySelectorAll('.lang-content');
+        let currentLanguage = 'en';
         
         function setLanguage(lang) {
+            currentLanguage = lang;
+            
             // Update active button
             langButtons.forEach(btn => {
-                btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
             });
             
-            // Show content for selected language
-            langContents.forEach(content => {
-                content.classList.remove('active');
-            });
-            
-            document.querySelectorAll(`.lang-content[data-lang="${lang}"], .lang-content:not([data-lang])`).forEach(content => {
-                content.classList.add('active');
-            });
-            
-            // Update elements with data-translate
+            // Update all elements with data-translate attribute
             document.querySelectorAll('[data-translate]').forEach(element => {
                 const key = element.getAttribute('data-translate');
                 if (translations[lang] && translations[lang][key]) {
-                    element.textContent = translations[lang][key];
+                    // Handle different element types
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.placeholder = translations[lang][key];
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
                 }
             });
+
+            // Update document lang attribute
+            document.documentElement.lang = lang;
         }
 
         langButtons.forEach(button => {
-            button.addEventListener('click', function() {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
                 const lang = this.getAttribute('data-lang');
                 setLanguage(lang);
             });
         });
+
+        // Visitor counter
+        function getVisitorCount() {
+            let count = localStorage.getItem('visitorCount');
+            if (!count) {
+                count = Math.floor(Math.random() * 1000) + 500;
+            } else {
+                count = parseInt(count) + 1;
+            }
+            localStorage.setItem('visitorCount', count);
+            return count.toLocaleString();
+        }
+
+        document.getElementById('visitorCounter').textContent = getVisitorCount();
 
         // Back to top button
         const backToTop = document.getElementById('backToTop');
@@ -1425,4 +2009,5 @@
         setLanguage('en');
     </script>
 </body>
+</html>
 </html>
